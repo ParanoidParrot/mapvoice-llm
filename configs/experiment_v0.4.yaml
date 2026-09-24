@@ -1,0 +1,31 @@
+experiment:
+  name: mapvoice-blr-kn-v0.4
+  seed: 42
+
+task:
+  city: Bengaluru
+  region_language: Kannada
+  navigation_language: English
+  target_representation: native-script
+
+data:
+  registry: configs/dataset_registry.json
+  verified_only_for_release: true
+  pronunciation_verified_only_for_release: true
+
+model:
+  base_model: sarvamai/sarvam-1
+  adapter_type: lora
+
+evaluation:
+  suites:
+    - entity-held-out
+    - lexicon-known
+    - morphological-hard
+    - generated-hard-holdout
+
+release_gates:
+  require_zero_entity_leakage: true
+  require_zero_dataset_lint_errors: true
+  require_verified_provenance: true
+  require_pronunciation_reviewer: true

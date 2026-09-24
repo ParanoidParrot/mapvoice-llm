@@ -1,0 +1,9 @@
+entity_id,english_name,kannada_name,entity_type,status
+hard_001,Devarachikkanahalli,ದೇವರಚಿಕ್ಕನಹಳ್ಳಿ,locality,manual-review
+hard_002,Doddanekundi,ದೊಡ್ಡನೆಕ್ಕುಂದಿ,locality,manual-review
+hard_003,Kadubeesanahalli,ಕಾಡುಬೀಸನಹಳ್ಳಿ,locality,manual-review
+hard_004,Chikkabanavara,ಚಿಕ್ಕಬಾಣಾವರ,locality,manual-review
+hard_005,Hesaraghatta,ಹೆಸರಘಟ್ಟ,locality,manual-review
+hard_006,Konanakunte,ಕೋಣನಕುಂಟೆ,locality,manual-review
+hard_007,Byatarayanapura,ಬ್ಯಾಟರಾಯನಪುರ,locality,manual-review
+hard_008,Uttarahalli,ಉತ್ತರಹಳ್ಳಿ,locality,manual-review

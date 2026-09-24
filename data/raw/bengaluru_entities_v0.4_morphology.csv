@@ -1,0 +1,21 @@
+entity_id,english_name,kannada_name,entity_type,city,language,alternate_spellings,morphemes,suffix,verification_status,pronunciation_verified,source_name,source_url,source_type,reviewer,notes,suffix_guess,stem_guess,morphology_guess_confidence
+blr_0001,Basavanagudi,ಬಸವನಗುಡಿ,locality,Bengaluru,Kannada,,Basavana|gudi,gudi,unverified,false,,,,,Migrated from v0.1 seed row,gudi,basavana,heuristic
+blr_0002,Jayanagar,ಜಯನಗರ,locality,Bengaluru,Kannada,,Jaya|nagar,nagar,unverified,false,,,,,Migrated from v0.1 seed row,nagar,jaya,heuristic
+blr_0003,Rajajinagar,ರಾಜಾಜಿನಗರ,locality,Bengaluru,Kannada,,Rajaji|nagar,nagar,unverified,false,,,,,Migrated from v0.1 seed row,nagar,rajaji,heuristic
+blr_0004,Banashankari,ಬನಶಂಕರಿ,locality,Bengaluru,Kannada,,,,unverified,false,,,,,Migrated from v0.1 seed row,,banashankari,none
+blr_0005,Yelahanka,ಯಲಹಂಕ,locality,Bengaluru,Kannada,,,,unverified,false,,,,,Migrated from v0.1 seed row,,yelahanka,none
+blr_0006,Kengeri,ಕೆಂಗೇರಿ,locality,Bengaluru,Kannada,,,,unverified,false,,,,,Migrated from v0.1 seed row,,kengeri,none
+blr_0007,Hulimavu,ಹುಳಿಮಾವು,locality,Bengaluru,Kannada,,Huli|mavu,,unverified,false,,,,,Migrated from v0.1 seed row,,hulimavu,none
+blr_0008,Uttarahalli,ಉತ್ತರಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Uttara|halli,halli,unverified,false,,,,,Migrated from v0.1 seed row,halli,uttara,heuristic
+blr_0009,Nagasandra,ನಾಗಸಂದ್ರ,locality,Bengaluru,Kannada,,Naga|sandra,sandra,unverified,false,,,,,Migrated from v0.1 seed row,sandra,naga,heuristic
+blr_0010,Konanakunte,ಕೋಣನಕುಂಟೆ,locality,Bengaluru,Kannada,,Konana|kunte,kunte,unverified,false,,,,,Migrated from v0.1 seed row,kunte,konana,heuristic
+blr_0011,Kadubeesanahalli,ಕಾಡುಬೀಸನಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Kadubeesana|halli,halli,unverified,false,,,,,Migrated from v0.1 seed row,halli,kadubeesana,heuristic
+blr_0012,Marathahalli,ಮಾರತಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Maratha|halli,halli,unverified,false,,,,,Migrated from v0.1 seed row,halli,maratha,heuristic
+blr_0013,Mahadevapura,ಮಹದೇವಪುರ,locality,Bengaluru,Kannada,,Mahadeva|pura,pura,unverified,false,,,,,Migrated from v0.1 seed row,pura,mahadeva,heuristic
+blr_0014,Nagarabhavi,ನಾಗರಭಾವಿ,locality,Bengaluru,Kannada,,Nagara|bhavi,bhavi,unverified,false,,,,,Migrated from v0.1 seed row,bhavi,nagara,heuristic
+blr_0015,Kanakapura Road,ಕನಕಪುರ ರಸ್ತೆ,road,Bengaluru,Kannada,Kanakapura Rd,Kanaka|pura,pura,unverified,false,,,,,Migrated from v0.1 seed row,road,kanakapura,heuristic
+blr_0016,Kempegowda Road,ಕೆಂಪೇಗೌಡ ರಸ್ತೆ,road,Bengaluru,Kannada,KG Road,,,unverified,false,,,,,Migrated from v0.1 seed row,road,kempegowda,heuristic
+blr_0017,Malleshwaram,ಮಲ್ಲೇಶ್ವರಂ,locality,Bengaluru,Kannada,Malleswaram,,,unverified,false,,,,,Migrated from v0.1 seed row,,malleshwaram,none
+blr_0018,Devanahalli,ದೇವನಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Devana|halli,halli,unverified,false,,,,,Migrated from v0.1 seed row,halli,devana,heuristic
+blr_0019,Hesaraghatta,ಹೆಸರಘಟ್ಟ,locality,Bengaluru,Kannada,,,,unverified,false,,,,,Migrated from v0.1 seed row,,hesaraghatta,none
+blr_0020,Chikkabanavara,ಚಿಕ್ಕಬಾಣಾವರ,locality,Bengaluru,Kannada,,Chikka|banavara,,unverified,false,,,,,Migrated from v0.1 seed row,,chikkabanavara,none

@@ -1,0 +1,12 @@
+{
+  "current_version": "0.4",
+  "versions": {
+    "0.4": {
+      "entities": "data/raw/bengaluru_entities_v0.4.csv",
+      "hard_set": "data/evaluation/generated_hard_holdout.jsonl",
+      "train": "data/processed/train.jsonl",
+      "validation": "data/processed/validation.jsonl",
+      "test": "data/processed/test.jsonl"
+    }
+  }
+}

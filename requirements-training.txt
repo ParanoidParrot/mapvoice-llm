@@ -1,0 +1,16 @@
+-r requirements-core.txt
+
+pandas>=2.2,<3
+scikit-learn>=1.6,<2
+PyYAML>=6.0,<7
+
+transformers>=4.57,<5
+datasets>=3.6,<5
+accelerate>=1.7,<3
+peft>=0.21,<1
+trl>=0.29,<2
+
+# Optional/useful for compatible CUDA-based QLoRA environments.
+# macOS users should train with --quantization none unless their local stack
+# explicitly supports the desired bitsandbytes configuration.
+bitsandbytes>=0.46,<1

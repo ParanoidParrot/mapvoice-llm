@@ -1,0 +1,35 @@
+experiment:
+  name: mapvoice-blr-kn-v0.3
+  seed: 42
+
+task:
+  city: Bengaluru
+  region_language: Kannada
+  navigation_language: English
+  target_representation: native-script
+
+data:
+  entity_csv: data/raw/bengaluru_entities_v0.1.csv
+  train: data/processed/train.jsonl
+  validation: data/processed/validation.jsonl
+  test: data/processed/test.jsonl
+  require_verified_for_release: true
+
+model:
+  base_model: sarvamai/sarvam-1
+  adapter_type: lora
+
+evaluation:
+  suites:
+    - entity-held-out
+    - lexicon-known
+    - morphological-hard
+  metrics:
+    - valid_json_rate
+    - entity_exact_match
+    - spoken_form_exact_match
+    - mean_character_error_rate
+
+notes:
+  - phonetic_form remains null until a Kannada phonetic representation is formally chosen
+  - seed data must be manually verified before any result is presented as linguistic accuracy

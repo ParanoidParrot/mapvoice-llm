@@ -1,0 +1,7 @@
+-r requirements-core.txt
+
+# Optional MapVoice-style TTS integration.
+# Keep separate from the default API/training dependencies so the project
+# remains runnable without a TTS account.
+sarvamai>=0.1
+python-dotenv>=1.0

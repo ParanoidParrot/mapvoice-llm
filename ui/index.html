@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MapVoice LLM — Bengaluru Kannada</title>
+  <meta
+    name="description"
+    content="MapVoice Bengaluru-Kannada language-model adaptation demo"
+  />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-mark" aria-hidden="true">MV</div>
+        <div>
+          <div class="brand-row">
+            <h1>MapVoice</h1>
+            <span class="product-pill">LLM Lab</span>
+          </div>
+          <p>Bengaluru · Kannada pronunciation adaptation</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span id="apiStatus" class="status-chip status-loading">
+          <span class="status-dot"></span>
+          Checking API
+        </span>
+        <a class="ghost-button" href="/docs" target="_blank" rel="noreferrer">
+          API docs
+        </a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="main-column">
+        <article class="card input-card">
+          <div class="card-heading">
+            <div>
+              <span class="eyebrow">Navigation input</span>
+              <h2>Test a Bengaluru instruction</h2>
+            </div>
+            <button id="clearButton" class="text-button" type="button">Clear</button>
+          </div>
+
+          <label class="sr-only" for="navigationInput">Navigation instruction</label>
+          <textarea
+            id="navigationInput"
+            rows="4"
+            spellcheck="false"
+            placeholder="Turn left onto Kanakapura Rd after 500m"
+          >Turn left onto Kanakapura Rd after 500m</textarea>
+
+          <div class="input-footer">
+            <div class="inline-note">
+              <span class="mini-dot"></span>
+              City context: Bengaluru
+            </div>
+            <button id="runButton" class="primary-button" type="button">
+              <span>Run comparison</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+
+        <section id="errorBanner" class="error-banner hidden" role="alert"></section>
+
+        <section class="flow-section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">MapVoice flow</span>
+              <h2>Raw → normalized → pronunciation-aware</h2>
+            </div>
+            <span id="runMeta" class="muted-meta">Ready</span>
+          </div>
+
+          <div class="flow-grid">
+            <article class="result-card">
+              <div class="result-number">01</div>
+              <div class="result-content">
+                <span class="result-label">Original text</span>
+                <p id="originalText">—</p>
+              </div>
+            </article>
+
+            <article class="result-card">
+              <div class="result-number">02</div>
+              <div class="result-content">
+                <span class="result-label">Normalized text</span>
+                <p id="normalizedText">—</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="comparison-grid">
+            <article class="card comparison-card">
+              <div class="comparison-header">
+                <div>
+                  <span class="eyebrow">Baseline</span>
+                  <h3>Rule engine</h3>
+                </div>
+                <span class="engine-chip">Deterministic</span>
+              </div>
+
+              <dl class="output-list">
+                <div>
+                  <dt>Detected entity</dt>
+                  <dd id="ruleEntity">—</dd>
+                </div>
+                <div>
+                  <dt>Kannada form</dt>
+                  <dd id="ruleKannada" class="kannada-text">—</dd>
+                </div>
+                <div>
+                  <dt>Spoken form</dt>
+                  <dd id="ruleSpoken" class="kannada-text">—</dd>
+                </div>
+                <div>
+                  <dt>Representation</dt>
+                  <dd id="ruleRepresentation">—</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="card comparison-card" id="modelCard">
+              <div class="comparison-header">
+                <div>
+                  <span class="eyebrow">Experiment</span>
+                  <h3>Language model</h3>
+                </div>
+                <span id="modelChip" class="engine-chip engine-chip-muted">Not run</span>
+              </div>
+
+              <div id="modelEmpty" class="empty-state">
+                Enable <strong>Compare model</strong> in the side panel to run the configured
+                base model or adapter.
+              </div>
+
+              <dl id="modelOutput" class="output-list hidden">
+                <div>
+                  <dt>Detected entity</dt>
+                  <dd id="modelEntity">—</dd>
+                </div>
+                <div>
+                  <dt>Kannada form</dt>
+                  <dd id="modelKannada" class="kannada-text">—</dd>
+                </div>
+                <div>
+                  <dt>Spoken form</dt>
+                  <dd id="modelSpoken" class="kannada-text">—</dd>
+                </div>
+                <div>
+                  <dt>Representation</dt>
+                  <dd id="modelRepresentation">—</dd>
+                </div>
+              </dl>
+
+              <div id="modelError" class="model-error hidden"></div>
+            </article>
+          </div>
+        </section>
+
+
+        <article class="card experiment-card">
+          <div class="native-heading">
+            <div>
+              <span class="eyebrow">Evaluation</span>
+              <h2>Benchmark current pipeline</h2>
+            </div>
+            <span id="experimentStatusChip" class="engine-chip engine-chip-muted">Idle</span>
+          </div>
+
+          <div class="experiment-controls">
+            <label>
+              <span class="field-label">Backend</span>
+              <select id="experimentBackend">
+                <option value="rule">Rule baseline</option>
+                <option value="model">Configured model / adapter</option>
+              </select>
+            </label>
+
+            <label>
+              <span class="field-label">Evaluation suite</span>
+              <select id="experimentSuite"></select>
+            </label>
+
+            <label>
+              <span class="field-label">Example limit</span>
+              <input id="experimentLimit" type="number" value="10" min="1" max="500" />
+            </label>
+
+            <button id="runExperiment" class="primary-button" type="button">
+              Run benchmark
+            </button>
+          </div>
+
+          <div class="experiment-results">
+            <div class="stat">
+              <strong id="metricEntityExact">—</strong>
+              <span>Entity exact</span>
+            </div>
+            <div class="stat">
+              <strong id="metricSpokenExact">—</strong>
+              <span>Spoken exact</span>
+            </div>
+            <div class="stat">
+              <strong id="metricCer">—</strong>
+              <span>Mean CER</span>
+            </div>
+            <div class="stat">
+              <strong id="metricElapsed">—</strong>
+              <span>Elapsed</span>
+            </div>
+          </div>
+
+          <div class="error-explorer">
+            <div class="side-card-heading">
+              <div>
+                <span class="eyebrow">Error explorer</span>
+                <h3>Highest-CER examples</h3>
+              </div>
+              <span id="experimentSuiteLabel" class="muted-meta">—</span>
+            </div>
+
+            <div id="failureSummary" class="failure-summary">
+              <span class="muted-meta">No failure categories yet.</span>
+            </div>
+
+            <div id="errorTable" class="error-table">
+              <span class="muted-meta">Run a benchmark to inspect errors.</span>
+            </div>
+
+            <div class="error-actions">
+              <button id="exportImprovement" class="ghost-button" type="button" disabled>
+                Export failures as improvement dataset
+              </button>
+              <span id="exportStatus" class="muted-meta"></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card annotation-card">
+          <div class="native-heading">
+            <div>
+              <span class="eyebrow">Dataset annotation</span>
+              <h2>Review Bengaluru candidates</h2>
+            </div>
+            <span id="annotationStats" class="muted-meta">Loading…</span>
+          </div>
+
+          <div class="annotation-layout">
+            <div>
+              <label class="field-label" for="candidateSelect">Candidate</label>
+              <select id="candidateSelect"></select>
+            </div>
+
+            <div class="annotation-form">
+              <label>
+                <span class="field-label">English name</span>
+                <input id="candidateEnglish" type="text" disabled />
+              </label>
+
+              <label>
+                <span class="field-label">Kannada name</span>
+                <input id="candidateKannada" type="text" placeholder="Enter reviewed Kannada form" />
+              </label>
+
+              <label>
+                <span class="field-label">Source name</span>
+                <input id="candidateSourceName" type="text" placeholder="e.g. official map / transport source" />
+              </label>
+
+              <label>
+                <span class="field-label">Source URL</span>
+                <input id="candidateSourceUrl" type="url" placeholder="https://..." />
+              </label>
+
+              <label class="annotation-notes">
+                <span class="field-label">Notes</span>
+                <textarea id="candidateNotes" rows="3"></textarea>
+              </label>
+            </div>
+
+            <div class="annotation-actions">
+              <button id="saveCandidate" class="primary-button" type="button">Save</button>
+              <button id="markReviewed" class="ghost-button" type="button">Mark reviewed</button>
+              <button id="rejectCandidate" class="text-button danger-text" type="button">Reject</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card native-card">
+          <div class="native-heading">
+            <div>
+              <span class="eyebrow">Native-language target</span>
+              <h2>Kannada pronunciation surface</h2>
+            </div>
+            <span class="language-badge">ಕನ್ನಡ · KN</span>
+          </div>
+
+          <div class="native-output">
+            <span id="nativeEntity" class="native-english">—</span>
+            <strong id="nativeKannada" class="native-kannada">—</strong>
+          </div>
+
+          <div class="audio-section">
+            <div class="audio-section-heading">
+              <div>
+                <span class="result-label">Audio comparison</span>
+                <p id="audioStatusText">Enable Generate audio to synthesize comparison clips.</p>
+              </div>
+              <span id="ttsStatusChip" class="engine-chip engine-chip-muted">TTS checking</span>
+            </div>
+
+            <div class="audio-player-grid">
+              <div class="audio-player-card">
+                <span>Raw</span>
+                <audio id="rawAudio" controls preload="none"></audio>
+              </div>
+              <div class="audio-player-card">
+                <span>Normalized</span>
+                <audio id="normalizedAudio" controls preload="none"></audio>
+              </div>
+              <div class="audio-player-card">
+                <span>Kannada</span>
+                <audio id="nativeAudio" controls preload="none"></audio>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <aside class="side-column">
+        <article class="card side-card">
+          <span class="eyebrow">Demo controls</span>
+          <h3>Configuration</h3>
+
+          <label class="field-label" for="languageSelect">Region language</label>
+          <select id="languageSelect">
+            <option value="kn" selected>Kannada</option>
+            <option value="ta" disabled>Tamil — later</option>
+            <option value="te" disabled>Telugu — later</option>
+          </select>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Compare model</strong>
+              <span>Run the configured HF model/adapter</span>
+            </div>
+            <label class="switch">
+              <input id="compareModel" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>Generate audio</strong>
+              <span>Raw / normalized / Kannada comparison</span>
+            </div>
+            <label class="switch">
+              <input id="generateAudio" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="divider"></div>
+
+          <span class="field-label">Samples</span>
+          <div id="sampleList" class="sample-list">
+            <div class="sample-skeleton"></div>
+            <div class="sample-skeleton"></div>
+            <div class="sample-skeleton"></div>
+          </div>
+        </article>
+
+        <article class="card side-card">
+          <span class="eyebrow">Experiment</span>
+          <h3>Model status</h3>
+          <dl class="compact-list">
+            <div>
+              <dt>Base model</dt>
+              <dd id="baseModel">—</dd>
+            </div>
+            <div>
+              <dt>Adapter</dt>
+              <dd id="adapterStatus">—</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="card side-card">
+          <span class="eyebrow">Dataset</span>
+          <h3>Bengaluru corpus</h3>
+          <div class="stats-grid">
+            <div class="stat">
+              <strong id="entityCount">—</strong>
+              <span>Entities</span>
+            </div>
+            <div class="stat">
+              <strong id="verifiedCount">—</strong>
+              <span>Verified</span>
+            </div>
+            <div class="stat">
+              <strong id="pronunciationCount">—</strong>
+              <span>Pronunciation verified</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card side-card">
+          <span class="eyebrow">Training readiness</span>
+          <h3>Strict-data gates</h3>
+          <div id="readinessList" class="readiness-list">
+            <span class="muted-meta">Loading…</span>
+          </div>
+        </article>
+
+        <article class="card side-card">
+          <div class="side-card-heading">
+            <div>
+              <span class="eyebrow">History</span>
+              <h3>Recent runs</h3>
+            </div>
+            <button id="refreshRuns" class="text-button" type="button">Refresh</button>
+          </div>
+          <div id="runHistory" class="run-history">
+            <span class="muted-meta">No runs yet</span>
+          </div>
+        </article>
+      </aside>
+    </main>
+
+    <footer>
+      <span>MapVoice LLM Lab · Bengaluru–Kannada v0.9</span>
+      <span>Rule baseline → model adaptation → downstream TTS</span>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

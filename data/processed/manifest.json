@@ -1,0 +1,27 @@
+{
+  "dataset_version": "0.4",
+  "entity_file": "data/raw/bengaluru_entities_v0.4.csv",
+  "split_strategy": "entity-level",
+  "seed": 42,
+  "filters": {
+    "verified_only": false,
+    "pronunciation_verified_only": false
+  },
+  "source_entities": 20,
+  "included_entities": 20,
+  "total_examples": 160,
+  "splits": {
+    "train": {
+      "examples": 112,
+      "entities": 14
+    },
+    "validation": {
+      "examples": 24,
+      "entities": 3
+    },
+    "test": {
+      "examples": 24,
+      "entities": 3
+    }
+  }
+}

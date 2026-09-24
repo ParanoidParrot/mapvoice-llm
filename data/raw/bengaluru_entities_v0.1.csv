@@ -1,0 +1,21 @@
+entity_id,english_name,kannada_name,entity_type,city,language,alternate_spellings,morphemes,suffix,verified
+blr_0001,Basavanagudi,ಬಸವನಗುಡಿ,locality,Bengaluru,Kannada,,Basavana|gudi,gudi,false
+blr_0002,Jayanagar,ಜಯನಗರ,locality,Bengaluru,Kannada,,Jaya|nagar,nagar,false
+blr_0003,Rajajinagar,ರಾಜಾಜಿನಗರ,locality,Bengaluru,Kannada,,Rajaji|nagar,nagar,false
+blr_0004,Banashankari,ಬನಶಂಕರಿ,locality,Bengaluru,Kannada,,,,false
+blr_0005,Yelahanka,ಯಲಹಂಕ,locality,Bengaluru,Kannada,,,,false
+blr_0006,Kengeri,ಕೆಂಗೇರಿ,locality,Bengaluru,Kannada,,,,false
+blr_0007,Hulimavu,ಹುಳಿಮಾವು,locality,Bengaluru,Kannada,,Huli|mavu,,false
+blr_0008,Uttarahalli,ಉತ್ತರಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Uttara|halli,halli,false
+blr_0009,Nagasandra,ನಾಗಸಂದ್ರ,locality,Bengaluru,Kannada,,Naga|sandra,sandra,false
+blr_0010,Konanakunte,ಕೋಣನಕುಂಟೆ,locality,Bengaluru,Kannada,,Konana|kunte,kunte,false
+blr_0011,Kadubeesanahalli,ಕಾಡುಬೀಸನಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Kadubeesana|halli,halli,false
+blr_0012,Marathahalli,ಮಾರತಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Maratha|halli,halli,false
+blr_0013,Mahadevapura,ಮಹದೇವಪುರ,locality,Bengaluru,Kannada,,Mahadeva|pura,pura,false
+blr_0014,Nagarabhavi,ನಾಗರಭಾವಿ,locality,Bengaluru,Kannada,,Nagara|bhavi,bhavi,false
+blr_0015,Kanakapura Road,ಕನಕಪುರ ರಸ್ತೆ,road,Bengaluru,Kannada,Kanakapura Rd,Kanaka|pura,pura,false
+blr_0016,Kempegowda Road,ಕೆಂಪೇಗೌಡ ರಸ್ತೆ,road,Bengaluru,Kannada,KG Road,,,false
+blr_0017,Malleshwaram,ಮಲ್ಲೇಶ್ವರಂ,locality,Bengaluru,Kannada,Malleswaram,,,false
+blr_0018,Devanahalli,ದೇವನಹಳ್ಳಿ,locality,Bengaluru,Kannada,,Devana|halli,halli,false
+blr_0019,Hesaraghatta,ಹೆಸರಘಟ್ಟ,locality,Bengaluru,Kannada,,,,false
+blr_0020,Chikkabanavara,ಚಿಕ್ಕಬಾಣಾವರ,locality,Bengaluru,Kannada,,Chikka|banavara,,false
