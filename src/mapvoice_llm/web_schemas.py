@@ -7,6 +7,7 @@ class CompareRequest(BaseModel):
     text: str = Field(min_length=1)
     include_model: bool = False
     include_audio: bool = False
+    adapter_id: str | None = None
 
 
 class DemoSample(BaseModel):
@@ -35,3 +36,20 @@ class CandidatePatchRequest(BaseModel):
 
 class ImprovementExportRequest(BaseModel):
     experiment_id: str = Field(min_length=1)
+
+
+class AdapterRegisterRequest(BaseModel):
+    adapter_id: str = Field(min_length=1, max_length=120)
+    adapter_path: str = Field(min_length=1)
+    base_model: str = Field(min_length=1)
+    training_run_id: str | None = None
+    notes: str | None = None
+
+
+class AdapterPromoteRequest(BaseModel):
+    adapter_id: str = Field(min_length=1)
+
+
+class ModelCompareRequest(BaseModel):
+    text: str = Field(min_length=1)
+    adapter_ids: list[str] = Field(default_factory=list, max_length=5)

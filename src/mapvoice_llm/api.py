@@ -8,6 +8,10 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from .audio_store import AudioStore
+from .adapter_registry import AdapterRegistry
+from .checkpoints import discover_checkpoints
+from .runtime_models import RuntimeModelManager
+from .training_runs import TrainingRunStore
 from .candidates import CandidateRepository, CandidateUpdate
 from .config import settings
 from .demo_data import SAMPLES
@@ -23,10 +27,13 @@ from .readiness import training_readiness
 from .tts import build_tts_provider
 from .improvement_dataset import build_improvement_rows, write_jsonl as write_improvement_jsonl
 from .web_schemas import (
+    AdapterPromoteRequest,
+    AdapterRegisterRequest,
     CandidatePatchRequest,
     CompareRequest,
     ExperimentRequest,
     ImprovementExportRequest,
+    ModelCompareRequest,
 )
 
 
@@ -44,25 +51,33 @@ UI_DIR = PROJECT_ROOT / "ui"
 AUDIO_DIR = PROJECT_ROOT / "outputs" / "generated_audio"
 RUN_DIR = PROJECT_ROOT / "outputs" / "demo_runs"
 EXPERIMENT_DIR = PROJECT_ROOT / "outputs" / "experiments"
+TRAINING_RUN_DIR = PROJECT_ROOT / "outputs" / "training_runs"
+ADAPTER_REGISTRY_FILE = PROJECT_ROOT / "configs" / "adapter_registry.json"
+ARTIFACT_ROOT = PROJECT_ROOT / "artifacts"
 IMPROVEMENT_DIR = PROJECT_ROOT / "outputs" / "improvement_datasets"
 
 ACTIVE_ENTITY_CSV = ENTITY_CSV if ENTITY_CSV.exists() else FALLBACK_ENTITY_CSV
 
 app = FastAPI(
     title="MapVoice-LLM",
-    version="0.9.0",
+    version="1.0.0",
     description="Bengaluru-Kannada geographic language-model experiment",
 )
 
-engine = MapVoiceEngine(
+adapter_registry = AdapterRegistry(ADAPTER_REGISTRY_FILE)
+runtime_models = RuntimeModelManager(
     entity_csv=ACTIVE_ENTITY_CSV,
-    model_name=settings.model_name,
-    adapter_path=settings.adapter_path,
+    base_model_name=settings.model_name,
+    default_adapter_path=settings.adapter_path,
+    adapter_registry=adapter_registry,
 )
+engine = runtime_models.base_engine
+
 tts = build_tts_provider(settings)
 audio_store = AudioStore(AUDIO_DIR)
 run_store = DemoRunStore(RUN_DIR)
 experiment_store = ExperimentStore(EXPERIMENT_DIR)
+training_run_store = TrainingRunStore(TRAINING_RUN_DIR)
 candidate_repo = CandidateRepository(CANDIDATE_CSV)
 suite_registry = EvaluationSuiteRegistry(PROJECT_ROOT)
 
@@ -98,17 +113,112 @@ def health() -> dict:
     return {
         "status": "ok",
         "project": "mapvoice-llm",
-        "version": "0.9.0",
+        "version": "1.0.0",
     }
 
 
-@app.get("/model/status", response_model=ModelStatus)
-def model_status() -> ModelStatus:
-    return ModelStatus(
-        configured=bool(settings.model_name),
-        model_name=settings.model_name,
-        adapter_path=settings.adapter_path,
-    )
+@app.get("/model/status")
+def model_status() -> dict:
+    active = adapter_registry.active()
+    return {
+        "configured": bool(settings.model_name),
+        "model_name": settings.model_name,
+        "env_adapter_path": settings.adapter_path,
+        "active_adapter": active,
+        "registered_adapters": len(adapter_registry.list()),
+    }
+
+
+
+@app.get("/adapters")
+def list_adapters() -> dict:
+    return {
+        "active_adapter": adapter_registry.active(),
+        "adapters": adapter_registry.list(),
+    }
+
+
+@app.post("/adapters/register")
+def register_adapter(request: AdapterRegisterRequest) -> dict:
+    adapter_path = Path(request.adapter_path)
+
+    if not adapter_path.is_absolute():
+        adapter_path = PROJECT_ROOT / adapter_path
+
+    record = adapter_registry.register({
+        "adapter_id": request.adapter_id,
+        "adapter_path": str(adapter_path),
+        "base_model": request.base_model,
+        "training_run_id": request.training_run_id,
+        "notes": request.notes,
+    })
+
+    runtime_models.clear_cache()
+    return record
+
+
+@app.post("/adapters/promote")
+def promote_adapter(request: AdapterPromoteRequest) -> dict:
+    try:
+        record = adapter_registry.promote(request.adapter_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Adapter not found")
+
+    runtime_models.clear_cache()
+    return {"active_adapter": record}
+
+
+@app.post("/adapters/clear-active")
+def clear_active_adapter() -> dict:
+    adapter_registry.clear_active()
+    runtime_models.clear_cache()
+    return {"active_adapter": None}
+
+
+@app.get("/training/runs")
+def list_training_runs(limit: int = 50) -> dict:
+    limit = max(1, min(limit, 200))
+    return {"runs": training_run_store.list(limit=limit)}
+
+
+@app.get("/training/runs/{run_id}")
+def get_training_run(run_id: str) -> dict:
+    run = training_run_store.get(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail="Training run not found")
+    return run
+
+
+@app.get("/checkpoints")
+def list_checkpoints() -> dict:
+    return {"checkpoints": discover_checkpoints(ARTIFACT_ROOT)}
+
+
+@app.post("/models/compare")
+def compare_models(request: ModelCompareRequest) -> dict:
+    rows = []
+
+    for adapter_id in request.adapter_ids:
+        try:
+            selected_engine = runtime_models.model_engine(adapter_id)
+            prediction = selected_engine.predict_model(request.text)
+
+            rows.append({
+                "adapter_id": adapter_id,
+                "prediction": prediction.model_dump(),
+                "error": None,
+            })
+        except Exception as exc:
+            rows.append({
+                "adapter_id": adapter_id,
+                "prediction": None,
+                "error": str(exc),
+            })
+
+    return {
+        "text": request.text,
+        "results": rows,
+    }
 
 
 @app.get("/tts/status")
@@ -378,7 +488,8 @@ def compare(request: CompareRequest) -> dict:
     if request.include_model:
         model_started = time.perf_counter()
         try:
-            model_result = engine.predict_model(request.text)
+            selected_engine = runtime_models.model_engine(request.adapter_id)
+            model_result = selected_engine.predict_model(request.text)
         except Exception as exc:
             model_error = str(exc)
         finally:
@@ -420,6 +531,7 @@ def compare(request: CompareRequest) -> dict:
         "options": {
             "include_model": request.include_model,
             "include_audio": request.include_audio,
+            "adapter_id": request.adapter_id,
         },
     }
 

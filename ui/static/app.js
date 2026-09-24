@@ -3,6 +3,7 @@ const els = {
   run: document.getElementById("runButton"),
   clear: document.getElementById("clearButton"),
   compareModel: document.getElementById("compareModel"),
+  adapterSelect: document.getElementById("adapterSelect"),
   generateAudio: document.getElementById("generateAudio"),
   apiStatus: document.getElementById("apiStatus"),
   error: document.getElementById("errorBanner"),
@@ -26,6 +27,8 @@ const els = {
   sampleList: document.getElementById("sampleList"),
   baseModel: document.getElementById("baseModel"),
   adapterStatus: document.getElementById("adapterStatus"),
+  registeredAdapterCount: document.getElementById("registeredAdapterCount"),
+  adapterRegistryList: document.getElementById("adapterRegistryList"),
   entityCount: document.getElementById("entityCount"),
   verifiedCount: document.getElementById("verifiedCount"),
   pronunciationCount: document.getElementById("pronunciationCount"),
@@ -201,6 +204,7 @@ async function runComparison() {
         text,
         include_model: els.compareModel.checked,
         include_audio: els.generateAudio.checked,
+        adapter_id: els.adapterSelect.value || null,
       }),
     });
 
@@ -274,11 +278,19 @@ async function loadModelStatus() {
   try {
     const response = await fetch("/model/status");
     const payload = await response.json();
+
     setText(els.baseModel, payload.model_name, "Not configured");
-    setText(els.adapterStatus, payload.adapter_path, "No adapter");
+    setText(
+      els.adapterStatus,
+      payload.active_adapter?.adapter_id,
+      "No active adapter"
+    );
+    els.registeredAdapterCount.textContent =
+      payload.registered_adapters ?? 0;
   } catch {
     setText(els.baseModel, null);
     setText(els.adapterStatus, null);
+    els.registeredAdapterCount.textContent = "—";
   }
 }
 
@@ -720,3 +732,90 @@ els.exportImprovement.addEventListener(
   "click",
   exportImprovementDataset
 );
+
+
+async function loadAdapters() {
+  try {
+    const response = await fetch("/adapters");
+    const payload = await response.json();
+
+    const adapters = payload.adapters || [];
+    const activeId = payload.active_adapter?.adapter_id || null;
+
+    els.adapterSelect.innerHTML = "";
+
+    const baseOption = document.createElement("option");
+    baseOption.value = "base";
+    baseOption.textContent = "Base model";
+    els.adapterSelect.appendChild(baseOption);
+
+    adapters.forEach((adapter) => {
+      const option = document.createElement("option");
+      option.value = adapter.adapter_id;
+      option.textContent =
+        `${adapter.adapter_id}${adapter.adapter_id === activeId ? " · active" : ""}`;
+      els.adapterSelect.appendChild(option);
+    });
+
+    if (activeId) {
+      els.adapterSelect.value = activeId;
+    }
+
+    if (!adapters.length) {
+      els.adapterRegistryList.innerHTML =
+        '<span class="muted-meta">No adapters registered</span>';
+      return;
+    }
+
+    els.adapterRegistryList.innerHTML = "";
+
+    adapters.forEach((adapter) => {
+      const row = document.createElement("div");
+      row.className =
+        `adapter-row${adapter.adapter_id === activeId ? " active" : ""}`;
+
+      row.innerHTML = `
+        <strong>${escapeHtml(adapter.adapter_id)}</strong>
+        <span>${escapeHtml(adapter.status || "candidate")} · ${escapeHtml(adapter.base_model || "")}</span>
+        <span>${escapeHtml(adapter.adapter_path || "")}</span>
+        ${
+          adapter.adapter_id === activeId
+            ? ""
+            : `<button type="button">Promote</button>`
+        }
+      `;
+
+      const button = row.querySelector("button");
+      if (button) {
+        button.addEventListener("click", () => promoteAdapter(adapter.adapter_id));
+      }
+
+      els.adapterRegistryList.appendChild(row);
+    });
+  } catch {
+    els.adapterRegistryList.innerHTML =
+      '<span class="muted-meta">Adapter registry unavailable</span>';
+  }
+}
+
+async function promoteAdapter(adapterId) {
+  try {
+    const response = await fetch("/adapters/promote", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({adapter_id: adapterId}),
+    });
+
+    const payload = await response.json();
+
+    if (!response.ok) {
+      throw new Error(payload.detail || "Promotion failed");
+    }
+
+    await Promise.all([loadAdapters(), loadModelStatus()]);
+  } catch (error) {
+    showError(error.message || String(error));
+  }
+}
+
+loadAdapters();

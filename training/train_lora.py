@@ -28,6 +28,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from mapvoice_llm.prompts import format_sft_example
+from mapvoice_llm.training_runs import TrainingRunStore
+from mapvoice_llm.adapter_registry import AdapterRegistry
 
 
 def read_jsonl(path: str | Path) -> list[dict]:
@@ -53,6 +55,8 @@ def parse_args() -> argparse.Namespace:
         help="Use 4bit only on a compatible CUDA environment.",
     )
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--adapter-id")
+    parser.add_argument("--register-adapter", action="store_true")
     return parser.parse_args()
 
 
@@ -73,6 +77,24 @@ def main() -> None:
 
     args = parse_args()
     device_name, dtype, supports_bf16 = hardware()
+
+    run_store = TrainingRunStore(
+        PROJECT_ROOT / "outputs" / "training_runs"
+    )
+    training_run = run_store.start({
+        "model_name": args.model_name,
+        "train_file": str(Path(args.train_file)),
+        "validation_file": str(Path(args.validation_file)),
+        "output_dir": str(Path(args.output_dir)),
+        "quantization": args.quantization,
+        "epochs": args.epochs,
+        "learning_rate": args.learning_rate,
+        "batch_size": args.batch_size,
+        "gradient_accumulation_steps": args.grad_accum,
+        "seed": args.seed,
+        "adapter_id": args.adapter_id,
+        "device": device_name,
+    })
 
     if args.quantization == "4bit" and device_name != "cuda":
         raise SystemExit(
@@ -172,10 +194,36 @@ def main() -> None:
         processing_class=tokenizer,
     )
 
-    trainer.train()
-    trainer.save_model(args.output_dir)
-    tokenizer.save_pretrained(args.output_dir)
-    print(f"Saved adapter to {args.output_dir}")
+    try:
+        train_result = trainer.train()
+        trainer.save_model(args.output_dir)
+        tokenizer.save_pretrained(args.output_dir)
+
+        metrics = dict(getattr(train_result, "metrics", {}) or {})
+        run_store.finish(
+            training_run["run_id"],
+            output_dir=str(Path(args.output_dir)),
+            metrics=metrics,
+        )
+
+        if args.register_adapter:
+            adapter_id = args.adapter_id or training_run["run_id"]
+            AdapterRegistry(
+                PROJECT_ROOT / "configs" / "adapter_registry.json"
+            ).register({
+                "adapter_id": adapter_id,
+                "adapter_path": str(Path(args.output_dir).resolve()),
+                "base_model": args.model_name,
+                "training_run_id": training_run["run_id"],
+                "notes": "Registered automatically by train_lora.py",
+            })
+            print(f"Registered adapter: {adapter_id}")
+
+        print(f"Training run: {training_run['run_id']}")
+        print(f"Saved adapter to {args.output_dir}")
+    except Exception as exc:
+        run_store.fail(training_run["run_id"], str(exc))
+        raise
 
 
 if __name__ == "__main__":

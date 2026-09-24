@@ -356,6 +356,13 @@
             </label>
           </div>
 
+          <div class="adapter-field">
+            <label class="field-label" for="adapterSelect">Model / adapter</label>
+            <select id="adapterSelect">
+              <option value="base">Base model</option>
+            </select>
+          </div>
+
           <div class="toggle-row">
             <div>
               <strong>Generate audio</strong>
@@ -386,8 +393,12 @@
               <dd id="baseModel">—</dd>
             </div>
             <div>
-              <dt>Adapter</dt>
+              <dt>Active adapter</dt>
               <dd id="adapterStatus">—</dd>
+            </div>
+            <div>
+              <dt>Registered</dt>
+              <dd id="registeredAdapterCount">0</dd>
             </div>
           </dl>
         </article>
@@ -408,6 +419,14 @@
               <strong id="pronunciationCount">—</strong>
               <span>Pronunciation verified</span>
             </div>
+          </div>
+        </article>
+
+        <article class="card side-card">
+          <span class="eyebrow">Adapters</span>
+          <h3>Runtime promotion</h3>
+          <div id="adapterRegistryList" class="adapter-registry-list">
+            <span class="muted-meta">No adapters registered</span>
           </div>
         </article>
 
@@ -435,7 +454,7 @@
     </main>
 
     <footer>
-      <span>MapVoice LLM Lab · Bengaluru–Kannada v0.9</span>
+      <span>MapVoice LLM Lab · Bengaluru–Kannada v1.0</span>
       <span>Rule baseline → model adaptation → downstream TTS</span>
     </footer>
   </div>

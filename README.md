@@ -788,3 +788,131 @@ failure categories
 ```
 
 This becomes the bridge between evaluation and the next fine-tuning/data-improvement cycle.
+
+
+---
+
+# v1.0 — Training lifecycle and adapter promotion
+
+v1.0 closes the loop between training and the demo.
+
+## Training run metadata
+
+Every `training/train_lora.py` run now creates a record under:
+
+```text
+outputs/training_runs/
+```
+
+Run with automatic adapter registration:
+
+```bash
+python training/train_lora.py \
+  --model-name sarvamai/sarvam-1 \
+  --train-file data/processed/train.jsonl \
+  --validation-file data/processed/validation.jsonl \
+  --output-dir artifacts/mapvoice-blr-kn-v1 \
+  --quantization none \
+  --adapter-id mapvoice-blr-kn-v1 \
+  --register-adapter
+```
+
+Inspect runs:
+
+```bash
+python scripts/training_runs.py
+```
+
+## Adapter registry
+
+Registry:
+
+```text
+configs/adapter_registry.json
+```
+
+Register an existing adapter:
+
+```bash
+python scripts/register_adapter.py \
+  mapvoice-blr-kn-v1 \
+  artifacts/mapvoice-blr-kn-v1 \
+  --base-model sarvamai/sarvam-1
+```
+
+Promote it:
+
+```bash
+python scripts/promote_adapter.py mapvoice-blr-kn-v1
+```
+
+The active adapter is then used by the demo without changing
+`MAPVOICE_ADAPTER_PATH`.
+
+API:
+
+```text
+GET  /adapters
+POST /adapters/register
+POST /adapters/promote
+POST /adapters/clear-active
+```
+
+## Checkpoint discovery
+
+```bash
+python scripts/checkpoints.py
+```
+
+API:
+
+```text
+GET /checkpoints
+```
+
+## Training runs API
+
+```text
+GET /training/runs
+GET /training/runs/{run_id}
+```
+
+## Runtime model selection
+
+The MapVoice UI now has a model/adapter selector. You can compare the base model
+or any registered adapter without restarting the API.
+
+Direct comparison API:
+
+```text
+POST /models/compare
+```
+
+Example:
+
+```bash
+curl -X POST http://127.0.0.1:8000/models/compare \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text":"Continue towards Jayanagar.",
+    "adapter_ids":["base","mapvoice-blr-kn-v1"]
+  }'
+```
+
+Lifecycle:
+
+```text
+dataset
+  ↓
+training run
+  ↓
+checkpoint / adapter
+  ↓
+adapter registry
+  ↓
+evaluation
+  ↓
+promotion
+  ↓
+MapVoice demo
+```

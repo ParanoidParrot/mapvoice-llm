@@ -960,3 +960,47 @@ footer {
   gap: 10px;
   margin-top: 12px;
 }
+
+
+.adapter-field {
+  margin-top: 14px;
+}
+
+.adapter-registry-list {
+  display: grid;
+  gap: 7px;
+}
+
+.adapter-row {
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  border-radius: 10px;
+  padding: 9px 10px;
+}
+
+.adapter-row.active {
+  border-color: #9fc7b3;
+  background: var(--accent-soft);
+}
+
+.adapter-row strong {
+  display: block;
+  font-size: 11px;
+}
+
+.adapter-row span {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.adapter-row button {
+  margin-top: 7px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-dark);
+  font-size: 10px;
+  padding: 0;
+}
