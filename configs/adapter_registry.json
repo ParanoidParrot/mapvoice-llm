@@ -1,4 +1,14 @@
 {
   "active_adapter_id": null,
-  "adapters": []
+  "adapters": [
+    {
+      "registered_at_epoch": 1790794217.7485719,
+      "status": "candidate",
+      "adapter_id": "mapvoice-blr-kn-v1",
+      "adapter_path": "/Users/anuradhasrinivas/mapvoice-llm/artifacts/mapvoice-blr-kn-v1",
+      "base_model": "sarvamai/sarvam-1",
+      "training_run_id": "train_06774432fdcc",
+      "notes": "Registered automatically by train_lora.py"
+    }
+  ]
 }

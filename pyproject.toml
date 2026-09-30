@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mapvoice-llm"
-version = "1.0.0"
+version = "1.1.0"
 description = "Bengaluru-Kannada geographic language adaptation experiments for MapVoice"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "fastapi>=0.116,<2",
     "pydantic>=2.11,<3",

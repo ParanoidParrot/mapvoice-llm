@@ -16,11 +16,6 @@ import argparse
 import json
 from pathlib import Path
 
-from datasets import Dataset
-from peft import LoraConfig
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from trl import SFTConfig, SFTTrainer
-
 from pathlib import Path
 import sys
 
@@ -30,6 +25,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 from mapvoice_llm.prompts import format_sft_example
 from mapvoice_llm.training_runs import TrainingRunStore
 from mapvoice_llm.adapter_registry import AdapterRegistry
+from mapvoice_llm.training_preflight import preflight_ok, run_training_preflight
 
 
 def read_jsonl(path: str | Path) -> list[dict]:
@@ -76,6 +72,24 @@ def main() -> None:
     import torch
 
     args = parse_args()
+
+    preflight = run_training_preflight(
+        train_file=args.train_file,
+        validation_file=args.validation_file,
+    )
+    print("Training preflight")
+    print(json.dumps(preflight, ensure_ascii=False, indent=2))
+    if not preflight_ok(preflight):
+        raise SystemExit(
+            "Training preflight failed. Fix the runtime/dataset issue above before model loading."
+        )
+
+    # Import heavy ML libraries only after the compatibility/data smoke test passes.
+    from datasets import Dataset
+    from peft import LoraConfig
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from trl import SFTConfig, SFTTrainer
+
     device_name, dtype, supports_bf16 = hardware()
 
     run_store = TrainingRunStore(
