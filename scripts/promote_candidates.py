@@ -1,99 +1,233 @@
 from __future__ import annotations
 
-"""
-Promote reviewed candidate rows into the v0.4 entity schema.
-
-This script is intentionally strict:
-- annotation_status must be "reviewed"
-- kannada_name must be populated
-- source_name must be populated
-- it never overwrites an existing entity automatically
-"""
-
 import argparse
 import csv
 from pathlib import Path
-
+import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-CANDIDATES = PROJECT_ROOT / "data" / "seeds" / "bengaluru_candidates_v0.6.csv"
-ENTITIES = PROJECT_ROOT / "data" / "raw" / "bengaluru_entities_v0.4.csv"
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dry-run", action="store_true")
-    return parser.parse_args()
+from mapvoice_llm.candidates import CandidateRepository
+from mapvoice_llm.pack_context import load_pack_context
 
 
 def main():
-    args = parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pack-id")
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
 
-    with CANDIDATES.open(newline="", encoding="utf-8") as handle:
-        candidates = list(csv.DictReader(handle))
+    context = load_pack_context(
+        PROJECT_ROOT,
+        args.pack_id,
+    )
 
-    with ENTITIES.open(newline="", encoding="utf-8") as handle:
+    if context.candidate_csv is None:
+        raise SystemExit("Pack has no candidate file")
+
+    candidates = CandidateRepository(
+        context.candidate_csv
+    ).list(limit=100000)
+
+    with context.entity_csv.open(
+        newline="",
+        encoding="utf-8",
+    ) as handle:
         reader = csv.DictReader(handle)
         entities = list(reader)
         fieldnames = list(reader.fieldnames or [])
 
+    generic = (
+        "latin_name" in fieldnames
+        and "native_name" in fieldnames
+    )
+
+    def entity_name(row):
+        return (
+            row.get("latin_name")
+            or row.get("english_name")
+            or ""
+        )
+
     existing_names = {
-        row["english_name"].strip().casefold()
+        entity_name(row).strip().casefold()
         for row in entities
     }
 
     promotable = []
     for row in candidates:
-        if row["annotation_status"].strip().lower() != "reviewed":
+        if row.get(
+            "annotation_status",
+            "",
+        ).strip().lower() != "reviewed":
             continue
-        if not row["kannada_name"].strip():
+
+        native_name = (
+            row.get("native_name")
+            or row.get("kannada_name")
+            or ""
+        ).strip()
+
+        latin_name = (
+            row.get("latin_name")
+            or row.get("english_name")
+            or ""
+        ).strip()
+
+        if not native_name:
             continue
-        if not row["source_name"].strip():
+        if not row.get(
+            "source_name",
+            "",
+        ).strip():
             continue
-        if row["english_name"].strip().casefold() in existing_names:
+        if latin_name.casefold() in existing_names:
             continue
+
         promotable.append(row)
 
-    print(f"Promotable candidates: {len(promotable)}")
-
+    print(
+        f"Pack: {context.pack.pack_id}"
+    )
+    print(
+        f"Promotable candidates: {len(promotable)}"
+    )
     for row in promotable:
-        print(f"- {row['english_name']} -> {row['kannada_name']}")
+        print(
+            "- "
+            + (
+                row.get("latin_name")
+                or row.get("english_name")
+                or ""
+            )
+            + " -> "
+            + (
+                row.get("native_name")
+                or row.get("kannada_name")
+                or ""
+            )
+        )
 
     if args.dry_run or not promotable:
         return
 
+    existing_ids = {
+        row["entity_id"]
+        for row in entities
+    }
+    prefix = context.pack.pack_id.replace(
+        "-",
+        "_",
+    )
     next_index = 1
-    ids = {row["entity_id"] for row in entities}
-    while f"blr_v06_{next_index:04d}" in ids:
-        next_index += 1
 
-    with ENTITIES.open("a", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+    def next_id():
+        nonlocal next_index
+        while (
+            f"{prefix}_{next_index:04d}"
+            in existing_ids
+        ):
+            next_index += 1
+        value = (
+            f"{prefix}_{next_index:04d}"
+        )
+        existing_ids.add(value)
+        next_index += 1
+        return value
+
+    with context.entity_csv.open(
+        "a",
+        newline="",
+        encoding="utf-8",
+    ) as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=fieldnames,
+        )
 
         for row in promotable:
-            entity_id = f"blr_v06_{next_index:04d}"
-            next_index += 1
+            latin_name = (
+                row.get("latin_name")
+                or row.get("english_name")
+                or ""
+            )
+            native_name = (
+                row.get("native_name")
+                or row.get("kannada_name")
+                or ""
+            )
 
-            writer.writerow({
-                "entity_id": entity_id,
-                "english_name": row["english_name"],
-                "kannada_name": row["kannada_name"],
-                "entity_type": row["entity_type"],
-                "city": "Bengaluru",
-                "language": "Kannada",
-                "alternate_spellings": "",
-                "morphemes": "",
-                "suffix": "",
-                "verification_status": "reviewed",
-                "pronunciation_verified": "false",
-                "source_name": row["source_name"],
-                "source_url": row["source_url"],
-                "source_type": "candidate-promotion",
-                "reviewer": "",
-                "notes": row["notes"],
-            })
+            if generic:
+                output = {
+                    "entity_id": next_id(),
+                    "latin_name": latin_name,
+                    "native_name": native_name,
+                    "entity_type": row.get(
+                        "entity_type",
+                        "locality",
+                    ),
+                    "city": context.pack.city,
+                    "language": (
+                        context.pack.region_language
+                    ),
+                    "language_code": (
+                        context.pack.region_language_code
+                    ),
+                    "alternate_spellings": "",
+                    "morphemes": "",
+                    "suffix": "",
+                    "verification_status": "reviewed",
+                    "pronunciation_verified": "false",
+                    "source_name": row.get(
+                        "source_name",
+                        "",
+                    ),
+                    "source_url": row.get(
+                        "source_url",
+                        "",
+                    ),
+                    "source_type": "candidate-promotion",
+                    "reviewer": "",
+                    "notes": row.get("notes", ""),
+                }
+            else:
+                output = {
+                    "entity_id": next_id(),
+                    "english_name": latin_name,
+                    "kannada_name": native_name,
+                    "entity_type": row.get(
+                        "entity_type",
+                        "locality",
+                    ),
+                    "city": context.pack.city,
+                    "language": (
+                        context.pack.region_language
+                    ),
+                    "alternate_spellings": "",
+                    "morphemes": "",
+                    "suffix": "",
+                    "verification_status": "reviewed",
+                    "pronunciation_verified": "false",
+                    "source_name": row.get(
+                        "source_name",
+                        "",
+                    ),
+                    "source_url": row.get(
+                        "source_url",
+                        "",
+                    ),
+                    "source_type": "candidate-promotion",
+                    "reviewer": "",
+                    "notes": row.get("notes", ""),
+                }
 
-    print(f"Appended {len(promotable)} rows to {ENTITIES}")
+            writer.writerow(output)
+
+    print(
+        f"Appended {len(promotable)} rows "
+        f"to {context.entity_csv}"
+    )
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
-from evaluation.metrics import character_error_rate, exact_match
+from .metrics import character_error_rate, exact_match
 from .baseline import RuleBaseline
 from .dataset import read_jsonl
 from .model_backend import TransformersBackend

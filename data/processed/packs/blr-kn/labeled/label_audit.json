@@ -1,0 +1,171 @@
+{
+  "language_code": "kn",
+  "language": "Kannada",
+  "script_name": "Kannada",
+  "entities": 20,
+  "ok": 20,
+  "with_issues": 0,
+  "issue_counts": {},
+  "rows": [
+    {
+      "entity_id": "blr_0001",
+      "latin_name": "Basavanagudi",
+      "native_name": "ಬಸವನಗುಡಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0002",
+      "latin_name": "Jayanagar",
+      "native_name": "ಜಯನಗರ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0003",
+      "latin_name": "Rajajinagar",
+      "native_name": "ರಾಜಾಜಿನಗರ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0004",
+      "latin_name": "Banashankari",
+      "native_name": "ಬನಶಂಕರಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0005",
+      "latin_name": "Yelahanka",
+      "native_name": "ಯಲಹಂಕ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0006",
+      "latin_name": "Kengeri",
+      "native_name": "ಕೆಂಗೇರಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0007",
+      "latin_name": "Hulimavu",
+      "native_name": "ಹುಳಿಮಾವು",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0008",
+      "latin_name": "Uttarahalli",
+      "native_name": "ಉತ್ತರಹಳ್ಳಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0009",
+      "latin_name": "Nagasandra",
+      "native_name": "ನಾಗಸಂದ್ರ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0010",
+      "latin_name": "Konanakunte",
+      "native_name": "ಕೋಣನಕುಂಟೆ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0011",
+      "latin_name": "Kadubeesanahalli",
+      "native_name": "ಕಾಡುಬೀಸನಹಳ್ಳಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0012",
+      "latin_name": "Marathahalli",
+      "native_name": "ಮಾರತಹಳ್ಳಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0013",
+      "latin_name": "Mahadevapura",
+      "native_name": "ಮಹದೇವಪುರ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0014",
+      "latin_name": "Nagarabhavi",
+      "native_name": "ನಾಗರಭಾವಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0015",
+      "latin_name": "Kanakapura Road",
+      "native_name": "ಕನಕಪುರ ರಸ್ತೆ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0016",
+      "latin_name": "Kempegowda Road",
+      "native_name": "ಕೆಂಪೇಗೌಡ ರಸ್ತೆ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0017",
+      "latin_name": "Malleshwaram",
+      "native_name": "ಮಲ್ಲೇಶ್ವರಂ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0018",
+      "latin_name": "Devanahalli",
+      "native_name": "ದೇವನಹಳ್ಳಿ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0019",
+      "latin_name": "Hesaraghatta",
+      "native_name": "ಹೆಸರಘಟ್ಟ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    },
+    {
+      "entity_id": "blr_0020",
+      "latin_name": "Chikkabanavara",
+      "native_name": "ಚಿಕ್ಕಬಾಣಾವರ",
+      "ok": true,
+      "native_script_fraction": 1.0,
+      "issues": []
+    }
+  ]
+}

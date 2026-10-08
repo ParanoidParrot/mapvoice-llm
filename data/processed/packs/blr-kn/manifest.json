@@ -1,0 +1,41 @@
+{
+  "dataset_format_version": 2,
+  "pack_id": "blr-kn",
+  "city": "Bengaluru",
+  "region_language": "Kannada",
+  "region_language_code": "kn",
+  "source_entity_file": "data/raw/bengaluru_entities_v0.4.csv",
+  "seed": 42,
+  "split_strategy": "entity-level",
+  "dataset_policy": {
+    "policy_id": "labeled",
+    "require_native_name": true,
+    "minimum_verification_status": "unverified",
+    "require_pronunciation_verified": false,
+    "require_source": false
+  },
+  "source_entities": 20,
+  "included_entities": 20,
+  "excluded_entities": 0,
+  "exclusion_reason_counts": {},
+  "total_examples": 160,
+  "split_entities": {
+    "train": 14,
+    "validation": 3,
+    "test": 3
+  },
+  "split_examples": {
+    "train": 112,
+    "validation": 24,
+    "test": 24
+  },
+  "label_audit": {
+    "language_code": "kn",
+    "language": "Kannada",
+    "script_name": "Kannada",
+    "entities": 20,
+    "ok": 20,
+    "with_issues": 0,
+    "issue_counts": {}
+  }
+}

@@ -1,6 +1,8 @@
-from pathlib import Path
-import csv
+from __future__ import annotations
 
+from pathlib import Path
+
+from .entity_repository import RegionalEntityRepository
 from .normalization import normalize_navigation_text
 from .pronunciation import build_target
 from .schemas import PronunciationResult
@@ -8,9 +10,8 @@ from .schemas import PronunciationResult
 
 class RuleBaseline:
     def __init__(self, entity_csv: str | Path):
-        self.entities: list[dict] = []
-        with open(entity_csv, newline="", encoding="utf-8") as handle:
-            self.entities = list(csv.DictReader(handle))
+        self.repository = RegionalEntityRepository(entity_csv)
+        self.entities = self.repository.list()
 
     def predict(self, text: str) -> PronunciationResult:
         normalized = normalize_navigation_text(text)
@@ -18,34 +19,68 @@ class RuleBaseline:
         detected = None
         for entity in sorted(
             self.entities,
-            key=lambda row: len(row["english_name"]),
+            key=lambda item: len(item.latin_name),
             reverse=True,
         ):
-            candidates = [entity["english_name"]]
+            candidates = [entity.latin_name]
             candidates.extend(
                 alias.strip()
-                for alias in (entity.get("alternate_spellings") or "").split("|")
+                for alias in (
+                    entity.alternate_spellings or ""
+                ).split("|")
                 if alias.strip()
             )
 
-            if any(candidate.lower() in text.lower() for candidate in candidates):
+            if any(
+                candidate.casefold()
+                in text.casefold()
+                for candidate in candidates
+            ):
                 detected = entity
                 break
 
         pronunciation = build_target(
-            kannada_name=detected["kannada_name"] if detected else None,
-            fallback_name=detected["english_name"] if detected else None,
+            native_name=(
+                detected.native_name
+                if detected
+                else None
+            ),
+            fallback_name=(
+                detected.latin_name
+                if detected
+                else None
+            ),
         )
 
         return PronunciationResult(
             original_text=text,
             normalized_instruction=normalized,
-            detected_entity=detected["english_name"] if detected else None,
-            entity_kannada=detected["kannada_name"] if detected else None,
-            entity_type=detected["entity_type"] if detected else None,
+            detected_entity=(
+                detected.latin_name
+                if detected
+                else None
+            ),
+            entity_native=(
+                detected.native_name
+                if detected
+                else None
+            ),
+            # Legacy UI/API alias retained.
+            entity_kannada=(
+                detected.native_name
+                if detected
+                else None
+            ),
+            entity_type=(
+                detected.entity_type
+                if detected
+                else None
+            ),
             spoken_form=pronunciation.spoken_form,
             phonetic_form=pronunciation.phonetic_form,
-            pronunciation_representation=pronunciation.representation,
+            pronunciation_representation=(
+                pronunciation.representation
+            ),
             pronunciation_form=pronunciation.spoken_form,
             source="rule-baseline",
         )

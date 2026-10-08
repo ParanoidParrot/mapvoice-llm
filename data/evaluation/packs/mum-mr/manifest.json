@@ -1,0 +1,9 @@
+{
+  "pack_id": "mum-mr",
+  "region_language": "Marathi",
+  "seed": 42,
+  "labeled_entities": 0,
+  "lexicon_known_examples": 0,
+  "entity_held_out_examples": 0,
+  "status": "empty-until-labels-reviewed"
+}

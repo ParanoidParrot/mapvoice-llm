@@ -1,0 +1,39 @@
+{
+  "profiles": [
+    {
+      "language_code": "kn",
+      "language": "Kannada",
+      "script_name": "Kannada",
+      "unicode_ranges": [["0C80", "0CFF"]],
+      "tts_language_code": "kn-IN"
+    },
+    {
+      "language_code": "ta",
+      "language": "Tamil",
+      "script_name": "Tamil",
+      "unicode_ranges": [["0B80", "0BFF"]],
+      "tts_language_code": "ta-IN"
+    },
+    {
+      "language_code": "te",
+      "language": "Telugu",
+      "script_name": "Telugu",
+      "unicode_ranges": [["0C00", "0C7F"]],
+      "tts_language_code": "te-IN"
+    },
+    {
+      "language_code": "mr",
+      "language": "Marathi",
+      "script_name": "Devanagari",
+      "unicode_ranges": [["0900", "097F"]],
+      "tts_language_code": "mr-IN"
+    },
+    {
+      "language_code": "ml",
+      "language": "Malayalam",
+      "script_name": "Malayalam",
+      "unicode_ranges": [["0D00", "0D7F"]],
+      "tts_language_code": "ml-IN"
+    }
+  ]
+}

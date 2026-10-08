@@ -1,0 +1,105 @@
+{
+  "default_pack_id": "blr-kn",
+  "packs": [
+    {
+      "pack_id": "blr-kn",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "country": "India",
+      "region_language": "Kannada",
+      "region_language_code": "kn",
+      "navigation_languages": [
+        "English",
+        "Kannada"
+      ],
+      "entity_file": "data/raw/bengaluru_entities_v0.4.csv",
+      "candidate_file": "data/seeds/bengaluru_candidates_v0.6.csv",
+      "evaluation_suites": [
+        "entity-held-out",
+        "lexicon-known",
+        "morphological-hard",
+        "generated-hard-holdout"
+      ],
+      "default_base_model": "sarvamai/sarvam-1",
+      "default_tts_language_code": "kn-IN",
+      "status": "experimental",
+      "description": "Bengaluru-Kannada navigation language adaptation pack."
+    },
+    {
+      "pack_id": "chn-ta",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "region_language": "Tamil",
+      "region_language_code": "ta",
+      "navigation_languages": [
+        "English",
+        "Tamil"
+      ],
+      "entity_file": "data/raw/chn_ta_entities.csv",
+      "candidate_file": "data/seeds/chn_ta_candidates.csv",
+      "evaluation_suites": [],
+      "default_base_model": "sarvamai/sarvam-1",
+      "default_tts_language_code": "ta-IN",
+      "status": "scaffold",
+      "description": "Chennai-Tamil navigation-language adaptation pack."
+    },
+    {
+      "pack_id": "hyd-te",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "region_language": "Telugu",
+      "region_language_code": "te",
+      "navigation_languages": [
+        "English",
+        "Telugu"
+      ],
+      "entity_file": "data/raw/hyd_te_entities.csv",
+      "candidate_file": "data/seeds/hyd_te_candidates.csv",
+      "evaluation_suites": [],
+      "default_base_model": "sarvamai/sarvam-1",
+      "default_tts_language_code": "te-IN",
+      "status": "scaffold",
+      "description": "Hyderabad-Telugu navigation-language adaptation pack."
+    },
+    {
+      "pack_id": "mum-mr",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "region_language": "Marathi",
+      "region_language_code": "mr",
+      "navigation_languages": [
+        "English",
+        "Marathi"
+      ],
+      "entity_file": "data/raw/mum_mr_entities.csv",
+      "candidate_file": "data/seeds/mum_mr_candidates.csv",
+      "evaluation_suites": [],
+      "default_base_model": "sarvamai/sarvam-1",
+      "default_tts_language_code": "mr-IN",
+      "status": "scaffold",
+      "description": "Mumbai-Marathi navigation-language adaptation pack."
+    },
+    {
+      "pack_id": "kochi-ml",
+      "city": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "region_language": "Malayalam",
+      "region_language_code": "ml",
+      "navigation_languages": [
+        "English",
+        "Malayalam"
+      ],
+      "entity_file": "data/raw/kochi_ml_entities.csv",
+      "candidate_file": "data/seeds/kochi_ml_candidates.csv",
+      "evaluation_suites": [],
+      "default_base_model": "sarvamai/sarvam-1",
+      "default_tts_language_code": "ml-IN",
+      "status": "scaffold",
+      "description": "Kochi-Malayalam navigation-language adaptation pack."
+    }
+  ]
+}

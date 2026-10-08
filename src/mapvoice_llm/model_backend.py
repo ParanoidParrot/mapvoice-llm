@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .prompts import build_prompt
 from .response_parser import ParsedModelOutput, parse_model_output
+from .tokenizer_loader import load_tokenizer
 
 
 @dataclass
@@ -29,17 +30,17 @@ class TransformersBackend:
         generation: GenerationConfig | None = None,
     ):
         import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
+        from transformers import AutoModelForCausalLM
 
         self.torch = torch
         self.model_name = model_name
         self.adapter_path = adapter_path
         self.generation = generation or GenerationConfig()
 
-        self.tokenizer = AutoTokenizer.from_pretrained(
+        self.tokenizer, self.tokenizer_info = load_tokenizer(
             model_name,
             trust_remote_code=True,
-            use_fast=True,
+            prefer_fast=True,
         )
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token

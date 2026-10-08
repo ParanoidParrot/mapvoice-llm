@@ -1,0 +1,41 @@
+{
+  "dataset_format_version": 2,
+  "pack_id": "mum-mr",
+  "city": "Mumbai",
+  "region_language": "Marathi",
+  "region_language_code": "mr",
+  "source_entity_file": "data/raw/mum_mr_entities.csv",
+  "seed": 42,
+  "split_strategy": "entity-level",
+  "dataset_policy": {
+    "policy_id": "labeled",
+    "require_native_name": true,
+    "minimum_verification_status": "unverified",
+    "require_pronunciation_verified": false,
+    "require_source": false
+  },
+  "source_entities": 0,
+  "included_entities": 0,
+  "excluded_entities": 0,
+  "exclusion_reason_counts": {},
+  "total_examples": 0,
+  "split_entities": {
+    "train": 0,
+    "validation": 0,
+    "test": 0
+  },
+  "split_examples": {
+    "train": 0,
+    "validation": 0,
+    "test": 0
+  },
+  "label_audit": {
+    "language_code": "mr",
+    "language": "Marathi",
+    "script_name": "Devanagari",
+    "entities": 0,
+    "ok": 0,
+    "with_issues": 0,
+    "issue_counts": {}
+  }
+}

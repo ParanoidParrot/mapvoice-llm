@@ -26,6 +26,7 @@ from mapvoice_llm.prompts import format_sft_example
 from mapvoice_llm.training_runs import TrainingRunStore
 from mapvoice_llm.adapter_registry import AdapterRegistry
 from mapvoice_llm.training_preflight import preflight_ok, run_training_preflight
+from mapvoice_llm.tokenizer_loader import load_tokenizer
 
 
 def read_jsonl(path: str | Path) -> list[dict]:
@@ -52,6 +53,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--adapter-id")
+    parser.add_argument("--pack-id")
+    parser.add_argument("--dataset-policy", default="labeled")
     parser.add_argument("--register-adapter", action="store_true")
     return parser.parse_args()
 
@@ -87,7 +90,7 @@ def main() -> None:
     # Import heavy ML libraries only after the compatibility/data smoke test passes.
     from datasets import Dataset
     from peft import LoraConfig
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from transformers import AutoModelForCausalLM
     from trl import SFTConfig, SFTTrainer
 
     device_name, dtype, supports_bf16 = hardware()
@@ -107,6 +110,8 @@ def main() -> None:
         "gradient_accumulation_steps": args.grad_accum,
         "seed": args.seed,
         "adapter_id": args.adapter_id,
+        "pack_id": args.pack_id,
+        "dataset_policy": args.dataset_policy,
         "device": device_name,
     })
 
@@ -123,11 +128,12 @@ def main() -> None:
         [format_sft_example(x) for x in read_jsonl(args.validation_file)]
     )
 
-    tokenizer = AutoTokenizer.from_pretrained(
+    tokenizer, tokenizer_info = load_tokenizer(
         args.model_name,
         trust_remote_code=True,
-        use_fast=True,
+        prefer_fast=True,
     )
+    print(f"Tokenizer: {type(tokenizer).__name__} | use_fast={tokenizer_info['use_fast']} | fallback={tokenizer_info['fallback_used']}")
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -214,6 +220,36 @@ def main() -> None:
         tokenizer.save_pretrained(args.output_dir)
 
         metrics = dict(getattr(train_result, "metrics", {}) or {})
+
+        metadata = {
+            "adapter_id": args.adapter_id,
+            "pack_id": args.pack_id,
+            "dataset_policy": args.dataset_policy,
+            "base_model": args.model_name,
+            "train_file": str(Path(args.train_file)),
+            "validation_file": str(Path(args.validation_file)),
+            "quantization": args.quantization,
+            "epochs": args.epochs,
+            "learning_rate": args.learning_rate,
+            "batch_size": args.batch_size,
+            "gradient_accumulation_steps": args.grad_accum,
+            "seed": args.seed,
+            "device": device_name,
+            "tokenizer": tokenizer_info,
+            "train_metrics": metrics,
+        }
+        (
+            Path(args.output_dir)
+            / "mapvoice_training_metadata.json"
+        ).write_text(
+            json.dumps(
+                metadata,
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+
         run_store.finish(
             training_run["run_id"],
             output_dir=str(Path(args.output_dir)),
@@ -229,6 +265,8 @@ def main() -> None:
                 "adapter_path": str(Path(args.output_dir).resolve()),
                 "base_model": args.model_name,
                 "training_run_id": training_run["run_id"],
+                "pack_id": args.pack_id,
+                "dataset_policy": args.dataset_policy,
                 "notes": "Registered automatically by train_lora.py",
             })
             print(f"Registered adapter: {adapter_id}")

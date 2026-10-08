@@ -3,7 +3,7 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
-from evaluation.metrics import character_error_rate, exact_match
+from .metrics import character_error_rate, exact_match
 from .baseline import RuleBaseline
 from .model_backend import TransformersBackend
 from .dataset import read_jsonl
@@ -25,7 +25,8 @@ def _prediction_dict_from_rule(prediction) -> dict:
 def _target_from_eval_row(row: dict) -> dict:
     return {
         "place_name": row.get("english_name"),
-        "place_name_kn": row.get("kannada_name"),
+        "place_name_kn": row.get("kannada_name") or row.get("native_name"),
+        "place_name_native": row.get("native_name") or row.get("kannada_name"),
         "spoken_form": row.get("kannada_name"),
         "entity_type": row.get("entity_type"),
     }

@@ -13,6 +13,8 @@ class PronunciationResult(BaseModel):
     original_text: str
     normalized_instruction: str
     detected_entity: str | None = None
+    entity_native: str | None = None
+    # Legacy compatibility alias.
     entity_kannada: str | None = None
     entity_type: str | None = None
 

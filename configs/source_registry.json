@@ -1,0 +1,37 @@
+{
+  "sources": [
+    {
+      "source_id": "osm-geofabrik-southern-zone",
+      "label": "OpenStreetMap / Geofabrik Southern Zone extract",
+      "source_type": "osm-extract",
+      "homepage": "https://download.geofabrik.de/asia/india/southern-zone.html",
+      "license": "ODbL-1.0",
+      "attribution": "© OpenStreetMap contributors",
+      "allowed_pack_ids": ["chn-ta", "hyd-te", "kochi-ml"],
+      "acquisition_mode": "downloaded-file",
+      "notes": "Use a downloaded extract or a derived GeoJSON/CSV. Do not use public Nominatim for bulk place extraction."
+    },
+    {
+      "source_id": "osm-geofabrik-western-zone",
+      "label": "OpenStreetMap / Geofabrik Western Zone extract",
+      "source_type": "osm-extract",
+      "homepage": "https://download.geofabrik.de/asia/india/western-zone.html",
+      "license": "ODbL-1.0",
+      "attribution": "© OpenStreetMap contributors",
+      "allowed_pack_ids": ["mum-mr"],
+      "acquisition_mode": "downloaded-file",
+      "notes": "Use a downloaded extract or a derived GeoJSON/CSV."
+    },
+    {
+      "source_id": "curated-local-file",
+      "label": "Curated local file",
+      "source_type": "curated-file",
+      "homepage": null,
+      "license": "REVIEW_REQUIRED",
+      "attribution": null,
+      "allowed_pack_ids": ["blr-kn", "chn-ta", "hyd-te", "mum-mr", "kochi-ml"],
+      "acquisition_mode": "local-file",
+      "notes": "License/provenance must be filled before candidates can be promoted to verified training data."
+    }
+  ]
+}

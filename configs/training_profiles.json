@@ -1,0 +1,29 @@
+{
+  "default_profile_id": "local-mac",
+  "profiles": [
+    {
+      "profile_id": "local-mac",
+      "label": "Local Mac / MPS",
+      "description": "Development-scale LoRA training on Apple Silicon without bitsandbytes quantization.",
+      "quantization": "none",
+      "epochs": 3,
+      "learning_rate": 0.0002,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 8,
+      "recommended_device": "mps",
+      "notes": "Use small datasets/model sizes locally. Serious runs may require a CUDA GPU."
+    },
+    {
+      "profile_id": "cuda-qlora",
+      "label": "CUDA / QLoRA",
+      "description": "4-bit QLoRA profile for a compatible NVIDIA CUDA environment.",
+      "quantization": "4bit",
+      "epochs": 3,
+      "learning_rate": 0.0002,
+      "batch_size": 2,
+      "gradient_accumulation_steps": 8,
+      "recommended_device": "cuda",
+      "notes": "Requires a compatible CUDA PyTorch/bitsandbytes environment."
+    }
+  ]
+}

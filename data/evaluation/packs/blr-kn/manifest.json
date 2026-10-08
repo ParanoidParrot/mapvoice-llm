@@ -1,0 +1,9 @@
+{
+  "pack_id": "blr-kn",
+  "region_language": "Kannada",
+  "seed": 42,
+  "labeled_entities": 20,
+  "lexicon_known_examples": 20,
+  "entity_held_out_examples": 24,
+  "status": "ready"
+}

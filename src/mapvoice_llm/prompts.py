@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import json
 
-SYSTEM_PROMPT = """You are MapVoice-BLR-KN, a narrowly scoped Bengaluru navigation-language model.
+SYSTEM_PROMPT = """You are MapVoice, a narrowly scoped regional navigation-language model.
 
-Given a navigation instruction:
-1. identify the relevant Bengaluru place entity,
-2. preserve its common English-script name,
-3. produce a Kannada-aware spoken form,
+Given a navigation instruction and its city/language context:
+1. identify the relevant local place entity,
+2. preserve its common Latin/English-script name,
+3. produce the locally appropriate native-script spoken form,
 4. return valid JSON only.
 
 Do not invent a place name that is not present in the instruction.
@@ -16,7 +16,8 @@ Do not fabricate a phonetic representation. If no validated phonetic form exists
 
 OUTPUT_SCHEMA = {
     "place_name": "string|null",
-    "place_name_kn": "string|null",
+    "place_name_native": "string|null",
+    "place_name_kn": "string|null (legacy compatibility alias)",
     "entity_type": "string|null",
     "language_origin": "string|null",
     "spoken_form": "string|null",
@@ -52,7 +53,8 @@ def build_prompt(
 def canonical_target(target: dict) -> dict:
     return {
         "place_name": target.get("place_name"),
-        "place_name_kn": target.get("place_name_kn"),
+        "place_name_native": target.get("place_name_native") or target.get("place_name_kn"),
+        "place_name_kn": target.get("place_name_kn") or target.get("place_name_native"),
         "entity_type": target.get("entity_type"),
         "language_origin": target.get("language_origin"),
         "spoken_form": target.get("spoken_form")

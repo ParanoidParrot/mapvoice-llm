@@ -58,3 +58,41 @@ def environment_snapshot() -> dict:
             for name in ('torch','datasets','dill','transformers','peft','trl','accelerate')
         },
     }
+
+
+def required_training_package_checks() -> list[RuntimeCheck]:
+    required = [
+        ("protobuf", "google.protobuf"),
+        ("sentencepiece", "sentencepiece"),
+        ("datasets", "datasets"),
+        ("transformers", "transformers"),
+        ("peft", "peft"),
+        ("trl", "trl"),
+        ("accelerate", "accelerate"),
+    ]
+
+    checks = []
+
+    for display_name, import_name in required:
+        try:
+            importlib.import_module(import_name)
+            checks.append(
+                RuntimeCheck(
+                    ok=True,
+                    level="ok",
+                    message=f"{display_name} is installed.",
+                )
+            )
+        except Exception as exc:
+            checks.append(
+                RuntimeCheck(
+                    ok=False,
+                    level="error",
+                    message=(
+                        f"{display_name} is missing or failed to import: "
+                        f"{type(exc).__name__}: {exc}"
+                    ),
+                )
+            )
+
+    return checks

@@ -1,21 +1,24 @@
 from __future__ import annotations
 
+import base64
+import importlib.util
 import os
+import sys
 
 from .base import TTSResult
 
 
 class SarvamTTSProvider:
     """
-    Thin optional Sarvam SDK adapter.
+    Sarvam text-to-speech adapter.
 
-    The SDK is imported lazily, so API/rule/model development does not require
-    the sarvamai package. This follows the working MapVoice integration pattern:
-    SarvamAI() reads SARVAM_API_KEY from the environment and audio bytes are
-    taken from response.audios[0].content.
+    Current Sarvam REST/SDK behavior:
+      - client: SarvamAI(api_subscription_key=...)
+      - request parameter: language_code
+      - response.audios: list of base64-encoded audio strings
 
-    Model/speaker/language are environment-configurable rather than hardcoded
-    into the rest of MapVoice-LLM.
+    The decoder also accepts older object/.content response shapes so existing
+    local installations fail more gracefully.
     """
 
     name = "sarvam"
@@ -36,7 +39,23 @@ class SarvamTTSProvider:
 
     @property
     def available(self) -> bool:
-        return bool(self.api_key)
+        if not self.api_key:
+            return False
+        try:
+            return importlib.util.find_spec("sarvamai") is not None
+        except (ImportError, ValueError):
+            return "sarvamai" in sys.modules
+
+    @property
+    def reason(self) -> str | None:
+        if not self.api_key:
+            return "SARVAM_API_KEY is not configured"
+        if not self.available:
+            return (
+                "The sarvamai SDK is not installed. Run: "
+                "python -m pip install -r requirements-tts.txt"
+            )
+        return None
 
     def _get_client(self):
         if not self.api_key:
@@ -50,13 +69,51 @@ class SarvamTTSProvider:
         except ImportError as exc:
             raise RuntimeError(
                 "Sarvam TTS requested but 'sarvamai' is not installed. "
-                "Install requirements-tts.txt."
+                "Run: python -m pip install -r requirements-tts.txt"
             ) from exc
 
-        # Existing MapVoice integration used SarvamAI() with the environment var.
-        os.environ.setdefault("SARVAM_API_KEY", self.api_key)
-        self._client = SarvamAI()
+        try:
+            # Current SDK.
+            self._client = SarvamAI(
+                api_subscription_key=self.api_key,
+            )
+        except TypeError:
+            # Backward-compatible fallback for older SDK installs.
+            os.environ.setdefault("SARVAM_API_KEY", self.api_key)
+            self._client = SarvamAI()
+
         return self._client
+
+    @staticmethod
+    def _decode_audio_item(item) -> bytes:
+        if isinstance(item, (bytes, bytearray)):
+            return bytes(item)
+
+        if isinstance(item, str):
+            try:
+                return base64.b64decode(item)
+            except Exception as exc:
+                raise RuntimeError(
+                    "Unable to base64-decode Sarvam audio"
+                ) from exc
+
+        # Older SDK shape used by the original MapVoice POC.
+        content = getattr(item, "content", None)
+        if content is not None:
+            if isinstance(content, str):
+                try:
+                    return base64.b64decode(content)
+                except Exception as exc:
+                    raise RuntimeError(
+                        "Unable to base64-decode Sarvam audio .content"
+                    ) from exc
+            if isinstance(content, (bytes, bytearray)):
+                return bytes(content)
+
+        raise RuntimeError(
+            "Unsupported Sarvam audio response item: "
+            f"{type(item).__name__}"
+        )
 
     def synthesize(
         self,
@@ -64,49 +121,57 @@ class SarvamTTSProvider:
         *,
         language_code: str | None = None,
     ) -> TTSResult:
-        if not text.strip():
+        text = text.strip()
+        if not text:
             raise ValueError("TTS text cannot be empty")
 
         client = self._get_client()
-        target_language = language_code or self.target_language_code
+        selected_language = (
+            language_code
+            or self.target_language_code
+        )
 
         try:
             response = client.text_to_speech.convert(
                 text=text,
-                target_language_code=target_language,
+                language_code=selected_language,
                 speaker=self.speaker,
                 model=self.model,
             )
-        except AttributeError as exc:
+        except TypeError as exc:
+            # Very old SDK compatibility: it used target_language_code.
+            try:
+                response = client.text_to_speech.convert(
+                    text=text,
+                    target_language_code=selected_language,
+                    speaker=self.speaker,
+                    model=self.model,
+                )
+            except Exception:
+                raise RuntimeError(
+                    "Sarvam TTS request failed. The installed SDK may not "
+                    "match the configured provider adapter."
+                ) from exc
+        except Exception as exc:
             raise RuntimeError(
-                "Installed sarvamai SDK does not expose "
-                "client.text_to_speech.convert with the expected interface. "
-                "Check the installed SDK version and provider adapter."
+                f"Sarvam TTS request failed: {exc}"
             ) from exc
 
         audios = getattr(response, "audios", None)
         if not audios:
             raise RuntimeError("Sarvam response contained no audio")
 
-        content = getattr(audios[0], "content", None)
-        if content is None:
-            raise RuntimeError("Sarvam audio result contained no .content")
+        chunks = [
+            self._decode_audio_item(item)
+            for item in audios
+        ]
+        audio_bytes = b"".join(chunks)
 
-        if isinstance(content, str):
-            # Some SDK versions/providers may expose base64 strings instead.
-            import base64
-            try:
-                content = base64.b64decode(content)
-            except Exception as exc:
-                raise RuntimeError("Unable to decode Sarvam audio content") from exc
-
-        if not isinstance(content, (bytes, bytearray)):
-            raise RuntimeError(
-                f"Unexpected Sarvam audio content type: {type(content).__name__}"
-            )
+        if not audio_bytes:
+            raise RuntimeError("Sarvam returned empty audio bytes")
 
         return TTSResult(
-            audio_bytes=bytes(content),
+            audio_bytes=audio_bytes,
             extension="wav",
             content_type="audio/wav",
             provider=self.name,

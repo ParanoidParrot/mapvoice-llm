@@ -12,20 +12,16 @@ ALLOWED_STATUS = {"candidate", "reviewed", "rejected"}
 @dataclass
 class CandidateUpdate:
     annotation_status: str | None = None
-    kannada_name: str | None = None
+    native_name: str | None = None
     source_name: str | None = None
     source_url: str | None = None
     notes: str | None = None
 
+    # Backward-compatible alias for the existing Bengaluru candidate file.
+    kannada_name: str | None = None
+
 
 class CandidateRepository:
-    """
-    Local CSV-backed annotation store for development.
-
-    This is intentionally simple and single-process oriented. For collaborative annotation,
-    replace it with a database-backed repository.
-    """
-
     def __init__(self, path: str | Path):
         self.path = Path(path)
         self._lock = Lock()
@@ -34,6 +30,21 @@ class CandidateRepository:
         with self.path.open(newline="", encoding="utf-8") as handle:
             reader = csv.DictReader(handle)
             return list(reader.fieldnames or []), list(reader)
+
+    @staticmethod
+    def _normalized(row: dict) -> dict:
+        result = dict(row)
+        result["latin_name"] = (
+            row.get("latin_name")
+            or row.get("english_name")
+            or ""
+        )
+        result["native_name"] = (
+            row.get("native_name")
+            or row.get("kannada_name")
+            or ""
+        )
+        return result
 
     def list(
         self,
@@ -50,13 +61,13 @@ class CandidateRepository:
                 if row.get("annotation_status") == status
             ]
 
-        return rows[:limit]
+        return [self._normalized(row) for row in rows[:limit]]
 
     def get(self, candidate_id: str) -> dict | None:
         _, rows = self._read()
         for row in rows:
             if row["candidate_id"] == candidate_id:
-                return row
+                return self._normalized(row)
         return None
 
     def update(self, candidate_id: str, update: CandidateUpdate) -> dict | None:
@@ -64,28 +75,39 @@ class CandidateRepository:
             fieldnames, rows = self._read()
             found = None
 
+            native_field = (
+                "native_name"
+                if "native_name" in fieldnames
+                else "kannada_name"
+            )
+
             for row in rows:
                 if row["candidate_id"] != candidate_id:
                     continue
 
                 values = {
                     "annotation_status": update.annotation_status,
-                    "kannada_name": update.kannada_name,
+                    native_field: (
+                        update.native_name
+                        if update.native_name is not None
+                        else update.kannada_name
+                    ),
                     "source_name": update.source_name,
                     "source_url": update.source_url,
                     "notes": update.notes,
                 }
 
                 for key, value in values.items():
-                    if value is not None:
+                    if value is not None and key in fieldnames:
                         row[key] = value
 
                 if row["annotation_status"] not in ALLOWED_STATUS:
                     raise ValueError(
-                        f"Invalid annotation_status: {row['annotation_status']}"
+                        f"Invalid annotation_status: "
+                        f"{row['annotation_status']}"
                     )
 
-                found = dict(row)
+                found = self._normalized(row)
                 break
 
             if found is None:
@@ -102,6 +124,10 @@ class CandidateRepository:
 
     def stats(self) -> dict:
         _, rows = self._read()
+
+        def native_value(row: dict) -> str:
+            return row.get("native_name") or row.get("kannada_name") or ""
+
         return {
             "total": len(rows),
             "candidate": sum(
@@ -113,8 +139,12 @@ class CandidateRepository:
             "rejected": sum(
                 row["annotation_status"] == "rejected" for row in rows
             ),
+            "with_native_name": sum(
+                bool(native_value(row).strip()) for row in rows
+            ),
+            # Legacy response field retained for older UI consumers.
             "with_kannada_name": sum(
-                bool(row["kannada_name"].strip()) for row in rows
+                bool(native_value(row).strip()) for row in rows
             ),
             "with_source": sum(
                 bool(row["source_name"].strip()) for row in rows

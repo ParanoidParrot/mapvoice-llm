@@ -1,0 +1,162 @@
+[
+  {
+    "entity_id": "blr_0001",
+    "latin_name": "Basavanagudi",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0002",
+    "latin_name": "Jayanagar",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0003",
+    "latin_name": "Rajajinagar",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0004",
+    "latin_name": "Banashankari",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0005",
+    "latin_name": "Yelahanka",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0006",
+    "latin_name": "Kengeri",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0007",
+    "latin_name": "Hulimavu",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0008",
+    "latin_name": "Uttarahalli",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0009",
+    "latin_name": "Nagasandra",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0010",
+    "latin_name": "Konanakunte",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0011",
+    "latin_name": "Kadubeesanahalli",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0012",
+    "latin_name": "Marathahalli",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0013",
+    "latin_name": "Mahadevapura",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0014",
+    "latin_name": "Nagarabhavi",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0015",
+    "latin_name": "Kanakapura Road",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0016",
+    "latin_name": "Kempegowda Road",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0017",
+    "latin_name": "Malleshwaram",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0018",
+    "latin_name": "Devanahalli",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0019",
+    "latin_name": "Hesaraghatta",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  },
+  {
+    "entity_id": "blr_0020",
+    "latin_name": "Chikkabanavara",
+    "reasons": [
+      "verification_status_below_policy",
+      "missing_source"
+    ]
+  }
+]

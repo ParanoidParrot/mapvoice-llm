@@ -28,6 +28,7 @@ class CandidatePatchRequest(BaseModel):
         default=None,
         pattern="^(candidate|reviewed|rejected)$",
     )
+    native_name: str | None = None
     kannada_name: str | None = None
     source_name: str | None = None
     source_url: str | None = None
@@ -53,3 +54,16 @@ class AdapterPromoteRequest(BaseModel):
 class ModelCompareRequest(BaseModel):
     text: str = Field(min_length=1)
     adapter_ids: list[str] = Field(default_factory=list, max_length=5)
+
+
+class TrainingPlanRequest(BaseModel):
+    pack_id: str | None = None
+    profile_id: str | None = None
+    version: str = "v1"
+    model_name: str | None = None
+    dataset_policy: str = "labeled"
+
+
+class ExperimentCompareRequest(BaseModel):
+    first_experiment_id: str = Field(min_length=1)
+    second_experiment_id: str = Field(min_length=1)

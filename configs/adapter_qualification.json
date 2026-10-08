@@ -1,0 +1,17 @@
+{
+  "prototype": {
+    "minimum_test_examples": 16,
+    "minimum_valid_json_rate": 0.80,
+    "minimum_spoken_exact_delta": 0.00,
+    "maximum_cer_delta": 0.00,
+    "maximum_entity_exact_regression": 0.05
+  },
+  "publishable": {
+    "allowed_dataset_policies": ["reviewed", "verified", "pronunciation-verified"],
+    "minimum_test_examples": 24,
+    "minimum_valid_json_rate": 0.95,
+    "minimum_spoken_exact_delta": 0.05,
+    "maximum_cer_delta": -0.02,
+    "maximum_entity_exact_regression": 0.00
+  }
+}
