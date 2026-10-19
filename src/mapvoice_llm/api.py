@@ -23,6 +23,9 @@ from .language_profiles import LanguageProfileRegistry
 from .language_validation import audit_entities
 from .source_registry import SourceRegistry
 from .base_model_registry import BaseModelRegistry
+from .benchmark_protocol import BenchmarkProtocol
+from .pilot_profiles import PilotProfileRegistry
+from .pilot_builder import pilot_status
 from .kannada_adapter_pipeline import lifecycle_status
 from .provenance import score_candidate
 from .pack_dataset import build_pack_dataset
@@ -76,13 +79,15 @@ TRAINING_PROFILE_FILE = PROJECT_ROOT / "configs" / "training_profiles.json"
 LANGUAGE_PROFILE_FILE = PROJECT_ROOT / "configs" / "language_profiles.json"
 SOURCE_REGISTRY_FILE = PROJECT_ROOT / "configs" / "source_registry.json"
 BASE_MODEL_REGISTRY_FILE = PROJECT_ROOT / "configs" / "base_models.json"
+BENCHMARK_PROTOCOL_FILE = PROJECT_ROOT / "configs" / "benchmark_protocol.json"
+PILOT_PROFILE_FILE = PROJECT_ROOT / "configs" / "pilot_profiles.json"
 ARTIFACT_ROOT = PROJECT_ROOT / "artifacts"
 IMPROVEMENT_DIR = PROJECT_ROOT / "outputs" / "improvement_datasets"
 
 
 app = FastAPI(
     title="MapVoice-LLM",
-    version="1.9.0",
+    version="2.0.0",
     description="Regional navigation-language adaptation experiments for MapVoice",
 )
 
@@ -91,6 +96,8 @@ training_profile_registry = TrainingProfileRegistry(TRAINING_PROFILE_FILE)
 language_profile_registry = LanguageProfileRegistry(LANGUAGE_PROFILE_FILE)
 source_registry = SourceRegistry(SOURCE_REGISTRY_FILE)
 base_model_registry = BaseModelRegistry(BASE_MODEL_REGISTRY_FILE)
+benchmark_protocol = BenchmarkProtocol.load(BENCHMARK_PROTOCOL_FILE)
+pilot_profile_registry = PilotProfileRegistry(PILOT_PROFILE_FILE)
 active_pack_context = load_pack_context(PROJECT_ROOT, settings.pack_id)
 
 ACTIVE_ENTITY_CSV = active_pack_context.entity_csv
@@ -158,7 +165,7 @@ def health() -> dict:
     return {
         "status": "ok",
         "project": "mapvoice-llm",
-        "version": "1.9.0",
+        "version": "2.0.0",
         "regional_pack": active_pack_context.pack.pack_id,
     }
 
@@ -274,6 +281,26 @@ def clear_active_adapter() -> dict:
 
 
 
+
+
+
+@app.get("/benchmark/protocol")
+def get_benchmark_protocol() -> dict:
+    return benchmark_protocol.to_dict()
+
+
+@app.get("/pilots/status")
+def get_pilot_status() -> dict:
+    return {
+        "pilots": [
+            pilot_status(
+                project_root=PROJECT_ROOT,
+                pack_id=profile.pack_id,
+                profile=profile,
+            )
+            for profile in pilot_profile_registry.list()
+        ]
+    }
 
 
 @app.get("/base-models")

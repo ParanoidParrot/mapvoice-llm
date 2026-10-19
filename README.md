@@ -1148,3 +1148,151 @@ publishable
 ```
 
 A `labeled` corpus can qualify as a prototype if it improves the held-out benchmark, but it cannot qualify as publishable. Publishable status requires a reviewed/verified dataset policy plus stricter metric gates.
+
+
+## Frozen benchmark methodology
+
+v2.0 introduces a versioned benchmark protocol:
+
+```text
+configs/benchmark_protocol.json
+```
+
+Inspect it with:
+
+```bash
+python scripts/benchmark_methodology.py
+```
+
+The protocol freezes:
+- the same held-out examples for all models/adapters
+- prompt/decoding settings
+- fixed seed
+- entity-held-out test methodology
+- primary metrics: spoken exact, CER, entity exact
+- secondary metrics: valid JSON, normalized-instruction exact, runtime
+- slice reporting for all / held-out / native-script / morphology
+- paired bootstrap confidence intervals for model-to-model deltas
+
+## Independent review and adjudication
+
+Candidates do not become verified training data just because they have a native-script name.
+
+Reviews are append-only under:
+
+```text
+data/reviews/<pack-id>/events.jsonl
+```
+
+Example first review:
+
+```bash
+python scripts/review_candidate.py \
+  --pack-id chn-ta \
+  --candidate-id <candidate-id> \
+  --reviewer-id reviewer-a \
+  --decision approve \
+  --native-name "<Tamil name>" \
+  --source-approved
+```
+
+A second independent reviewer uses a different reviewer ID. Matching independent approvals with source approval make the row verified. Pronunciation verification is separately recorded with:
+
+```text
+--pronunciation-approved
+```
+
+Disagreements require adjudication using:
+
+```text
+--stage adjudication
+```
+
+Review state:
+
+```bash
+python scripts/review_status.py --pack-id chn-ta
+```
+
+Materialize consensus-reviewed rows:
+
+```bash
+python scripts/materialize_reviewed_dataset.py \
+  --pack-id chn-ta
+```
+
+Output:
+
+```text
+data/reviewed/chn-ta/entities.csv
+```
+
+## Small regional pilots
+
+Small pilots exist for:
+
+```text
+chn-ta
+hyd-te
+mum-mr
+kochi-ml
+```
+
+Each requires at least 12 verified entities and uses:
+
+```text
+8 train entities
+2 validation entities
+2 held-out test entities
+```
+
+Check readiness:
+
+```bash
+python scripts/pilot_status.py --all
+```
+
+Build once ready:
+
+```bash
+python scripts/build_pilot.py --pack-id chn-ta
+```
+
+Pilot outputs live under:
+
+```text
+data/pilots/<pack-id>/
+```
+
+These are feasibility pilots only, not publishable adapter corpora.
+
+
+## Publish an early Hugging Face dataset preview
+
+Build:
+
+```bash
+python scripts/build_hf_dataset_release.py --version 0.1.0
+```
+
+Check release claims:
+
+```bash
+python scripts/check_hf_release.py \
+  --release-dir outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.1.0
+```
+
+Install Hub tooling and authenticate:
+
+```bash
+python -m pip install -r requirements-hf.txt
+hf auth login
+```
+
+Publish:
+
+```bash
+python scripts/publish_hf_dataset.py \
+  --repo-id YOUR_HF_USERNAME/mapvoice-india-navigation-toponyms \
+  --release-dir outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.1.0
+```

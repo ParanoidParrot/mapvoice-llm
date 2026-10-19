@@ -115,13 +115,25 @@ def evaluate_model(
             or ""
         )
 
-        valid_json_total += int(generated.valid_json)
-        entity_exact_total += exact_match(
+        entity_exact = exact_match(
             target.get("place_name"),
             prediction.get("place_name"),
         )
-        spoken_exact_total += exact_match(reference, hypothesis)
-        cer_total += character_error_rate(reference, hypothesis)
+        spoken_exact = exact_match(
+            reference,
+            hypothesis,
+        )
+        cer = character_error_rate(
+            reference,
+            hypothesis,
+        )
+
+        valid_json_total += int(
+            generated.valid_json
+        )
+        entity_exact_total += entity_exact
+        spoken_exact_total += spoken_exact
+        cer_total += cer
 
         results.append(
             {
@@ -133,6 +145,14 @@ def evaluate_model(
                 "valid_json": generated.valid_json,
                 "error": generated.error,
                 "raw_text": generated.raw_text,
+                "metrics": {
+                    "valid_json": float(
+                        generated.valid_json
+                    ),
+                    "entity_exact": entity_exact,
+                    "spoken_exact": spoken_exact,
+                    "character_error_rate": cer,
+                },
             }
         )
 

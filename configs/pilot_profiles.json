@@ -1,0 +1,32 @@
+{
+  "profiles": [
+    {
+      "pack_id": "chn-ta",
+      "minimum_verified_entities": 12,
+      "train_entities": 8,
+      "validation_entities": 2,
+      "test_entities": 2
+    },
+    {
+      "pack_id": "hyd-te",
+      "minimum_verified_entities": 12,
+      "train_entities": 8,
+      "validation_entities": 2,
+      "test_entities": 2
+    },
+    {
+      "pack_id": "mum-mr",
+      "minimum_verified_entities": 12,
+      "train_entities": 8,
+      "validation_entities": 2,
+      "test_entities": 2
+    },
+    {
+      "pack_id": "kochi-ml",
+      "minimum_verified_entities": 12,
+      "train_entities": 8,
+      "validation_entities": 2,
+      "test_entities": 2
+    }
+  ]
+}

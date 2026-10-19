@@ -7,7 +7,11 @@
       "homepage": "https://download.geofabrik.de/asia/india/southern-zone.html",
       "license": "ODbL-1.0",
       "attribution": "© OpenStreetMap contributors",
-      "allowed_pack_ids": ["chn-ta", "hyd-te", "kochi-ml"],
+      "allowed_pack_ids": [
+        "chn-ta",
+        "hyd-te",
+        "kochi-ml"
+      ],
       "acquisition_mode": "downloaded-file",
       "notes": "Use a downloaded extract or a derived GeoJSON/CSV. Do not use public Nominatim for bulk place extraction."
     },
@@ -18,7 +22,9 @@
       "homepage": "https://download.geofabrik.de/asia/india/western-zone.html",
       "license": "ODbL-1.0",
       "attribution": "© OpenStreetMap contributors",
-      "allowed_pack_ids": ["mum-mr"],
+      "allowed_pack_ids": [
+        "mum-mr"
+      ],
       "acquisition_mode": "downloaded-file",
       "notes": "Use a downloaded extract or a derived GeoJSON/CSV."
     },
@@ -29,9 +35,32 @@
       "homepage": null,
       "license": "REVIEW_REQUIRED",
       "attribution": null,
-      "allowed_pack_ids": ["blr-kn", "chn-ta", "hyd-te", "mum-mr", "kochi-ml"],
+      "allowed_pack_ids": [
+        "blr-kn",
+        "chn-ta",
+        "hyd-te",
+        "mum-mr",
+        "kochi-ml"
+      ],
       "acquisition_mode": "local-file",
       "notes": "License/provenance must be filled before candidates can be promoted to verified training data."
+    },
+    {
+      "source_id": "koel-locality-benchmark",
+      "label": "Koel Benchmark Suite locality split",
+      "source_type": "huggingface-dataset",
+      "homepage": "https://huggingface.co/datasets/NisargBhavsar25/koel-benchmark",
+      "license": "Apache-2.0",
+      "attribution": "Koel Benchmark Suite, Nisarg Bhavsar (2025)",
+      "allowed_pack_ids": [
+        "blr-kn",
+        "chn-ta",
+        "hyd-te",
+        "mum-mr",
+        "kochi-ml"
+      ],
+      "acquisition_mode": "huggingface-datasets",
+      "notes": "Secondary locality/pronunciation reference. Preserve provenance; do not automatically promote into verified MapVoice labels."
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "protocol_id": "mapvoice-benchmark-v1",
+  "protocol_version": 1,
+  "seed": 20261018,
+  "primary_metrics": [
+    "spoken_form_exact_match",
+    "mean_character_error_rate",
+    "entity_exact_match"
+  ],
+  "secondary_metrics": [
+    "valid_json_rate",
+    "normalized_instruction_exact_match",
+    "elapsed_ms"
+  ],
+  "required_slices": [
+    "all",
+    "entity-held-out",
+    "native-script",
+    "morphology"
+  ],
+  "minimum_test_examples": {
+    "prototype": 24,
+    "pilot": 16,
+    "publishable": 50
+  },
+  "paired_bootstrap": {
+    "enabled": true,
+    "iterations": 1000,
+    "confidence": 0.95
+  },
+  "ranking": [
+    {"metric": "spoken_form_exact_match", "direction": "higher"},
+    {"metric": "mean_character_error_rate", "direction": "lower"},
+    {"metric": "entity_exact_match", "direction": "higher"},
+    {"metric": "valid_json_rate", "direction": "higher"}
+  ],
+  "notes": "All models/adapters must use the same frozen test examples, prompt template, decoding configuration, seed and metric implementation."
+}
