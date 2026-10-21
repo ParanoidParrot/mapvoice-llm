@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .pack_context import load_pack_context
 from .regional_packs import RegionalPackRegistry
+from .dataset_snapshot import write_release_snapshot
 
 
 EXPORT_FIELDS = [
@@ -342,6 +343,10 @@ Rows marked `source_license=ODbL-1.0` retain OpenStreetMap/Open Database License
 Other upstream rows retain the license recorded in `source_license`.
 """,
         encoding="utf-8",
+    )
+
+    write_release_snapshot(
+        release_dir=out,
     )
 
     return {

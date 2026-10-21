@@ -26,6 +26,7 @@ from .base_model_registry import BaseModelRegistry
 from .benchmark_protocol import BenchmarkProtocol
 from .pilot_profiles import PilotProfileRegistry
 from .pilot_builder import pilot_status
+from .review_dashboard import review_progress
 from .kannada_adapter_pipeline import lifecycle_status
 from .provenance import score_candidate
 from .pack_dataset import build_pack_dataset
@@ -87,7 +88,7 @@ IMPROVEMENT_DIR = PROJECT_ROOT / "outputs" / "improvement_datasets"
 
 app = FastAPI(
     title="MapVoice-LLM",
-    version="2.0.0",
+    version="2.2.0",
     description="Regional navigation-language adaptation experiments for MapVoice",
 )
 
@@ -165,7 +166,7 @@ def health() -> dict:
     return {
         "status": "ok",
         "project": "mapvoice-llm",
-        "version": "2.0.0",
+        "version": "2.2.0",
         "regional_pack": active_pack_context.pack.pack_id,
     }
 
@@ -282,6 +283,14 @@ def clear_active_adapter() -> dict:
 
 
 
+
+
+
+@app.get("/reviews/progress")
+def get_review_progress() -> dict:
+    return review_progress(
+        PROJECT_ROOT
+    )
 
 
 @app.get("/benchmark/protocol")

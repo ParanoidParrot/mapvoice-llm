@@ -1,0 +1,16 @@
+{
+  "preview": {
+    "minimum_preview_rows": 1
+  },
+  "reviewed": {
+    "minimum_reviewed_rows": 20,
+    "minimum_reviewed_packs": 1
+  },
+  "multilingual-reviewed": {
+    "minimum_reviewed_rows": 40,
+    "minimum_reviewed_packs": 2
+  },
+  "pilot": {
+    "minimum_ready_pilots": 1
+  }
+}

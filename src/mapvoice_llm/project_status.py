@@ -227,7 +227,7 @@ def project_status(
 
     return {
         "project": "MapVoice-LLM",
-        "version": "2.0.0",
+        "version": "2.2.0",
         "runtime": {
             "python": sys.version.split()[0],
             "python_executable": sys.executable,

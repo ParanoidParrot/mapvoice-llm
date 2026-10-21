@@ -1296,3 +1296,75 @@ python scripts/publish_hf_dataset.py \
   --repo-id YOUR_HF_USERNAME/mapvoice-india-navigation-toponyms \
   --release-dir outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.1.0
 ```
+
+
+## Post-publication dataset loop
+
+After publishing `v0.1-preview`, the normal cycle is now:
+
+```text
+ingest candidates
+→ build reviewer packet
+→ reviewer A CSV
+→ reviewer B CSV
+→ import review events
+→ adjudicate disagreements
+→ materialize reviewed entities
+→ build next HF release
+→ compare release diff
+→ publish
+```
+
+Build a reviewer packet:
+
+```bash
+python scripts/build_review_packet.py --pack-id chn-ta
+```
+
+A reviewer fills `decision`, `reviewer_native_name`, `source_approved`,
+`pronunciation_approved` and `review_notes`.
+
+Import the completed packet:
+
+```bash
+python scripts/import_review_packet.py \
+  --pack-id chn-ta \
+  --reviewer-id reviewer-a \
+  --packet data/review_packets/chn-ta.csv
+```
+
+Then a second reviewer independently reviews the same source packet using
+their own reviewer ID.
+
+Check all-language review progress:
+
+```bash
+python scripts/review_progress.py
+```
+
+Audit candidate conflicts:
+
+```bash
+python scripts/audit_candidate_conflicts.py --pack-id chn-ta
+```
+
+Build the next HF release:
+
+```bash
+python scripts/build_hf_dataset_release.py --version 0.2.0
+```
+
+Check progression gates:
+
+```bash
+python scripts/release_progression.py \
+  --release-dir outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.2.0
+```
+
+Compare it to the public v0.1 snapshot:
+
+```bash
+python scripts/compare_hf_releases.py \
+  --first outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.1.0 \
+  --second outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.2.0
+```
