@@ -1,21 +1,31 @@
 candidate_id,latin_name,entity_type,city,region_language,region_language_code,annotation_status,native_name,source_name,source_url,notes,alternate_names,latitude,longitude,source_id,source_record_id,source_license,source_retrieved_at,source_snapshot_sha256,provenance_status,review_priority
-mum_mr_cand_0001,Andheri,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0002,Bandra,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0003,Borivali,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0004,Dadar,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0005,Worli,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0006,Colaba,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0007,Chembur,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0008,Ghatkopar,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0009,Mulund,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0010,Powai,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0011,Vikhroli,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0012,Kandivali,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0013,Malad,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0014,Goregaon,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0015,Santacruz,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0016,Kurla,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0017,Byculla,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0018,Parel,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0019,Matunga,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-mum_mr_cand_0020,Sion,locality,Mumbai,Marathi,mr,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0001,Andheri,locality,Mumbai,Marathi,mr,candidate,अंधेरी,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0002,Bandra,locality,Mumbai,Marathi,mr,candidate,वांद्रे,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0003,Borivali,locality,Mumbai,Marathi,mr,candidate,बोरिवली,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0004,Dadar,locality,Mumbai,Marathi,mr,candidate,दादर,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0005,Worli,locality,Mumbai,Marathi,mr,candidate,वरळी,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0006,Colaba,locality,Mumbai,Marathi,mr,candidate,कुलाबा,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0007,Chembur,locality,Mumbai,Marathi,mr,candidate,चेंबूर,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0008,Ghatkopar,locality,Mumbai,Marathi,mr,candidate,घाटकोपर,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0009,Mulund,locality,Mumbai,Marathi,mr,candidate,मुलुंड,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0010,Powai,locality,Mumbai,Marathi,mr,candidate,पवई,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0011,Vikhroli,locality,Mumbai,Marathi,mr,candidate,विक्रोळी,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0012,Kandivali,locality,Mumbai,Marathi,mr,candidate,कांदिवली,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0013,Malad,locality,Mumbai,Marathi,mr,candidate,मालाड,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0014,Goregaon,locality,Mumbai,Marathi,mr,candidate,गोरेगाव,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0015,Santacruz,locality,Mumbai,Marathi,mr,candidate,सांताक्रूझ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0016,Kurla,locality,Mumbai,Marathi,mr,candidate,कुर्ला,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0017,Byculla,locality,Mumbai,Marathi,mr,candidate,भायखळा,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0018,Parel,locality,Mumbai,Marathi,mr,candidate,परळ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0019,Matunga,locality,Mumbai,Marathi,mr,candidate,माटुंगा,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0020,Sion,locality,Mumbai,Marathi,mr,candidate,शीव,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+mum_mr_cand_0021,Lower Parel,locality,Mumbai,Marathi,mr,candidate,लोअर परळ,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0022,Prabhadevi,locality,Mumbai,Marathi,mr,candidate,प्रभादेवी,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0023,Mahim,locality,Mumbai,Marathi,mr,candidate,माहीम,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0024,Juhu,locality,Mumbai,Marathi,mr,candidate,जुहू,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0025,Versova,locality,Mumbai,Marathi,mr,candidate,वर्सोवा,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0026,Bhandup,locality,Mumbai,Marathi,mr,candidate,भांडुप,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0027,Wadala,locality,Mumbai,Marathi,mr,candidate,वडाळा,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0028,Sewri,locality,Mumbai,Marathi,mr,candidate,शिवडी,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0029,Mazgaon,locality,Mumbai,Marathi,mr,candidate,माझगाव,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+mum_mr_cand_0030,Fort,locality,Mumbai,Marathi,mr,candidate,फोर्ट,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high

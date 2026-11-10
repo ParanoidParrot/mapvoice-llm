@@ -1,21 +1,31 @@
 candidate_id,latin_name,entity_type,city,region_language,region_language_code,annotation_status,native_name,source_name,source_url,notes,alternate_names,latitude,longitude,source_id,source_record_id,source_license,source_retrieved_at,source_snapshot_sha256,provenance_status,review_priority
-kochi_ml_cand_0001,Edappally,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0002,Kakkanad,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0003,Vyttila,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0004,Kaloor,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0005,Palarivattom,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0006,Fort Kochi,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0007,Mattancherry,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0008,Ernakulam,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0009,Tripunithura,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0010,Aluva,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0011,Kalamassery,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0012,Thevara,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0013,Panampilly Nagar,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0014,Kadavanthra,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0015,Marine Drive,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0016,MG Road,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0017,Thrikkakara,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0018,Kundannoor,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0019,Maradu,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-kochi_ml_cand_0020,Nettoor,locality,Kochi,Malayalam,ml,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0001,Edappally,locality,Kochi,Malayalam,ml,candidate,ഇടപ്പള്ളി,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0002,Kakkanad,locality,Kochi,Malayalam,ml,candidate,കാക്കനാട്,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0003,Vyttila,locality,Kochi,Malayalam,ml,candidate,വൈറ്റില,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0004,Kaloor,locality,Kochi,Malayalam,ml,candidate,കലൂർ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0005,Palarivattom,locality,Kochi,Malayalam,ml,candidate,പാലാരിവട്ടം,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0006,Fort Kochi,locality,Kochi,Malayalam,ml,candidate,ഫോർട്ട് കൊച്ചി,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0007,Mattancherry,locality,Kochi,Malayalam,ml,candidate,മട്ടാഞ്ചേരി,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0008,Ernakulam,locality,Kochi,Malayalam,ml,candidate,എറണാകുളം,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0009,Tripunithura,locality,Kochi,Malayalam,ml,candidate,തൃപ്പൂണിത്തുറ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0010,Aluva,locality,Kochi,Malayalam,ml,candidate,ആലുവ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0011,Kalamassery,locality,Kochi,Malayalam,ml,candidate,കളമശ്ശേരി,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0012,Thevara,locality,Kochi,Malayalam,ml,candidate,തേവര,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0013,Panampilly Nagar,locality,Kochi,Malayalam,ml,candidate,പനമ്പിള്ളി നഗർ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0014,Kadavanthra,locality,Kochi,Malayalam,ml,candidate,കടവന്ത്ര,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0015,Marine Drive,locality,Kochi,Malayalam,ml,candidate,മറൈൻ ഡ്രൈവ്,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0016,MG Road,locality,Kochi,Malayalam,ml,candidate,എം.ജി. റോഡ്,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0017,Thrikkakara,locality,Kochi,Malayalam,ml,candidate,തൃക്കാക്കര,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0018,Kundannoor,locality,Kochi,Malayalam,ml,candidate,കുണ്ടന്നൂർ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0019,Maradu,locality,Kochi,Malayalam,ml,candidate,മരട്,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0020,Nettoor,locality,Kochi,Malayalam,ml,candidate,നെട്ടൂർ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+kochi_ml_cand_0021,Palluruthy,locality,Kochi,Malayalam,ml,candidate,പള്ളുരുത്തി,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0022,Thoppumpady,locality,Kochi,Malayalam,ml,candidate,തോപ്പുംപടി,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0023,Pachalam,locality,Kochi,Malayalam,ml,candidate,പച്ചാളം,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0024,Elamakkara,locality,Kochi,Malayalam,ml,candidate,എളമക്കര,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0025,Vennala,locality,Kochi,Malayalam,ml,candidate,വെണ്ണല,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0026,Ponnurunni,locality,Kochi,Malayalam,ml,candidate,പൊന്നുരുന്നി,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0027,Chilavannur,locality,Kochi,Malayalam,ml,candidate,ചിലവന്നൂർ,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0028,Ravipuram,locality,Kochi,Malayalam,ml,candidate,രവിപുരം,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0029,Kathrikadavu,locality,Kochi,Malayalam,ml,candidate,കതൃക്കടവ്,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+kochi_ml_cand_0030,Willingdon Island,locality,Kochi,Malayalam,ml,candidate,വില്ലിങ്ടൺ ഐലൻഡ്,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high

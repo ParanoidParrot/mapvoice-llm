@@ -1,21 +1,31 @@
 candidate_id,latin_name,entity_type,city,region_language,region_language_code,annotation_status,native_name,source_name,source_url,notes,alternate_names,latitude,longitude,source_id,source_record_id,source_license,source_retrieved_at,source_snapshot_sha256,provenance_status,review_priority
-hyd_te_cand_0001,Banjara Hills,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0002,Jubilee Hills,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0003,Madhapur,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0004,Gachibowli,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0005,Hitech City,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0006,Kondapur,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0007,Kukatpally,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0008,Secunderabad,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0009,Begumpet,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0010,Ameerpet,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0011,Mehdipatnam,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0012,Uppal,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0013,Tarnaka,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0014,Dilsukhnagar,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0015,LB Nagar,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0016,Manikonda,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0017,Nallagandla,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0018,Miyapur,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0019,Charminar,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
-hyd_te_cand_0020,Himayatnagar,locality,Hyderabad,Telugu,te,candidate,,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0001,Banjara Hills,locality,Hyderabad,Telugu,te,candidate,బంజారా హిల్స్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0002,Jubilee Hills,locality,Hyderabad,Telugu,te,candidate,జూబ్లీ హిల్స్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0003,Madhapur,locality,Hyderabad,Telugu,te,candidate,మాదాపూర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0004,Gachibowli,locality,Hyderabad,Telugu,te,candidate,గచ్చిబౌలి,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0005,Hitech City,locality,Hyderabad,Telugu,te,candidate,హైటెక్ సిటీ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0006,Kondapur,locality,Hyderabad,Telugu,te,candidate,కొండాపూర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0007,Kukatpally,locality,Hyderabad,Telugu,te,candidate,కూకట్‌పల్లి,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0008,Secunderabad,locality,Hyderabad,Telugu,te,candidate,సికింద్రాబాద్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0009,Begumpet,locality,Hyderabad,Telugu,te,candidate,బేగంపేట్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0010,Ameerpet,locality,Hyderabad,Telugu,te,candidate,అమీర్‌పేట్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0011,Mehdipatnam,locality,Hyderabad,Telugu,te,candidate,మెహిదీపట్నం,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0012,Uppal,locality,Hyderabad,Telugu,te,candidate,ఉప్పల్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0013,Tarnaka,locality,Hyderabad,Telugu,te,candidate,తార్నాక,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0014,Dilsukhnagar,locality,Hyderabad,Telugu,te,candidate,దిల్‌సుఖ్‌నగర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0015,LB Nagar,locality,Hyderabad,Telugu,te,candidate,ఎల్‌బీ నగర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0016,Manikonda,locality,Hyderabad,Telugu,te,candidate,మణికొండ,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0017,Nallagandla,locality,Hyderabad,Telugu,te,candidate,నల్లగండ్ల,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0018,Miyapur,locality,Hyderabad,Telugu,te,candidate,మియాపూర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0019,Charminar,locality,Hyderabad,Telugu,te,candidate,చార్మినార్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0020,Himayatnagar,locality,Hyderabad,Telugu,te,candidate,హిమాయత్‌నగర్,,,Seed candidate only; native-script form and pronunciation require review.,,,,,,,,,,
+hyd_te_cand_0021,Abids,locality,Hyderabad,Telugu,te,candidate,అబిడ్స్,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0022,Nampally,locality,Hyderabad,Telugu,te,candidate,నాంపల్లి,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0023,Somajiguda,locality,Hyderabad,Telugu,te,candidate,సోమాజిగూడ,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0024,Panjagutta,locality,Hyderabad,Telugu,te,candidate,పంజాగుట్ట,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0025,Khairatabad,locality,Hyderabad,Telugu,te,candidate,ఖైరతాబాద్,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0026,Masab Tank,locality,Hyderabad,Telugu,te,candidate,మాసాబ్ ట్యాంక్,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0027,Tolichowki,locality,Hyderabad,Telugu,te,candidate,టోలిచౌకి,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0028,Attapur,locality,Hyderabad,Telugu,te,candidate,అత్తాపూర్,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0029,Habsiguda,locality,Hyderabad,Telugu,te,candidate,హబ్సిగూడ,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high
+hyd_te_cand_0030,Nacharam,locality,Hyderabad,Telugu,te,candidate,నాచారం,Curated reviewer-batch candidate; provenance/native form require review; unverified native-script suggestion,,Synced from mapvoice-review 30-candidate batch; native form remains unverified until review.,,,,,,,,,incomplete,high

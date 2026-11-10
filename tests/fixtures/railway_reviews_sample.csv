@@ -1,0 +1,6 @@
+review_id,candidate_id,reviewer_id,language_code,latin_name,suggested_native_name,corrected_native_name,spelling_status,pronunciation_status,place_familiarity,notes,created_at
+0ec5f5e7-e6ac-41a8-9b6e-9fb6da65b392,blr-kn-001,123,kn,Jayanagar,ಜಯನಗರ,,correct,correct,know,,2026-11-08T17:40:42.702338+00:00
+40cf22b6-05f3-4189-8220-07daccfb5c2f,blr-kn-002,123,kn,Basavanagudi,ಬಸವನಗುಡಿ,,correct,correct,know,,2026-11-08T17:40:50.809660+00:00
+dd78a340-ffa9-40b0-a7f1-41f0f0de31fb,blr-kn-003,123,kn,Malleshwaram,ಮಲ್ಲೇಶ್ವರಂ,,correct,correct,know,,2026-11-08T17:41:00.169358+00:00
+5066c0ea-3075-4bbf-9449-8ff04e071d20,blr-kn-004,123,kn,Yelahanka,ಯಲಹಂಕ,,correct,not_applicable,heard_of,,2026-11-08T17:41:09.103113+00:00
+ec8e49e9-c96e-4663-97e2-b6c52c6795ac,blr-kn-005,123,kn,Kengeri,ಕೆಂಗೇರಿ,,unsure,unsure,heard_of,,2026-11-08T17:41:18.095439+00:00

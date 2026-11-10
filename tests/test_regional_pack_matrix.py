@@ -34,7 +34,7 @@ def test_repository_has_parallel_packs():
         for row in rows
     }
 
-    assert by_id["chn-ta"]["candidate_count"] == 20
-    assert by_id["hyd-te"]["candidate_count"] == 20
-    assert by_id["mum-mr"]["candidate_count"] == 20
-    assert by_id["kochi-ml"]["candidate_count"] == 20
+    assert by_id["chn-ta"]["candidate_count"] == 30
+    assert by_id["hyd-te"]["candidate_count"] == 30
+    assert by_id["mum-mr"]["candidate_count"] == 30
+    assert by_id["kochi-ml"]["candidate_count"] == 30

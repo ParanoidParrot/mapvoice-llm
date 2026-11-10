@@ -24,6 +24,14 @@ class ReviewEvent:
     source_approved: bool
     notes: str
     created_at: str
+    external_review_id: str = ""
+    external_candidate_id: str = ""
+    external_source: str = ""
+    spelling_status: str = ""
+    pronunciation_status: str = ""
+    place_familiarity: str = ""
+    suggested_native_name: str = ""
+    corrected_native_name: str = ""
 
     @classmethod
     def create(
@@ -37,6 +45,16 @@ class ReviewEvent:
         pronunciation_approved: bool = False,
         source_approved: bool = False,
         notes: str = "",
+        review_id: str | None = None,
+        created_at: str | None = None,
+        external_review_id: str = "",
+        external_candidate_id: str = "",
+        external_source: str = "",
+        spelling_status: str = "",
+        pronunciation_status: str = "",
+        place_familiarity: str = "",
+        suggested_native_name: str = "",
+        corrected_native_name: str = "",
     ) -> "ReviewEvent":
         if decision not in VALID_DECISIONS:
             raise ValueError(
@@ -44,7 +62,7 @@ class ReviewEvent:
             )
 
         return cls(
-            review_id="rev_" + uuid.uuid4().hex[:14],
+            review_id=review_id or ("rev_" + uuid.uuid4().hex[:14]),
             candidate_id=candidate_id,
             reviewer_id=reviewer_id,
             stage=stage,
@@ -53,7 +71,15 @@ class ReviewEvent:
             pronunciation_approved=pronunciation_approved,
             source_approved=source_approved,
             notes=notes.strip(),
-            created_at=datetime.now(timezone.utc).isoformat(),
+            created_at=created_at or datetime.now(timezone.utc).isoformat(),
+            external_review_id=external_review_id,
+            external_candidate_id=external_candidate_id,
+            external_source=external_source,
+            spelling_status=spelling_status,
+            pronunciation_status=pronunciation_status,
+            place_familiarity=place_familiarity,
+            suggested_native_name=suggested_native_name,
+            corrected_native_name=corrected_native_name,
         )
 
     def to_dict(self) -> dict:

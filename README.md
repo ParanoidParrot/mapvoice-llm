@@ -1368,3 +1368,32 @@ python scripts/compare_hf_releases.py \
   --first outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.1.0 \
   --second outputs/hf_datasets/mapvoice-india-toponyms-preview-v0.2.0
 ```
+
+## Importing reviews from `mapvoice-review` (Railway)
+
+Export the reviewer app CSV, then import it into the existing append-only review store:
+
+```bash
+python scripts/import_reviewer_export.py --input mapvoice_reviews.csv --strict
+```
+
+The importer is idempotent by the Railway `review_id`. Re-importing a full export only appends rows that have not already been imported.
+
+Railway candidate IDs are retained as audit metadata. When they differ from MapVoice-LLM candidate IDs, the importer resolves the canonical candidate using language pack + normalized Latin place name. The original Railway spelling/pronunciation/familiarity statuses are preserved on each event.
+
+Status mapping is intentionally conservative:
+
+- `spelling_status=correct` -> `decision=approve`
+- `spelling_status=incorrect|unsure` -> `decision=needs-correction`
+- `pronunciation_status=correct` -> `pronunciation_approved=true`
+- `incorrect|unsure|not_applicable` -> `pronunciation_approved=false`
+
+`not_applicable` is preserved in event metadata and is not treated as a verified pronunciation.
+
+Typical loop while reviews are arriving:
+
+```bash
+python scripts/import_reviewer_export.py --input mapvoice_reviews.csv --strict
+python scripts/review_progress.py
+python scripts/review_status.py --pack-id blr-kn
+```
